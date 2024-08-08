@@ -4,6 +4,7 @@
     <Hero/>
     <About/>
     <Features2/>
+    <Listings/>
     <CTA/>
   </div>
 </template>
