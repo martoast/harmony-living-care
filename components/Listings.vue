@@ -2,9 +2,18 @@
     <div class="bg-gray-50 min-h-screen">
       <div class="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         
-        <div class="pb-4">
-          <h2 class="text-base font-semibold leading-7 text-red-500">Find your next assisted living</h2>
-          <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Property listings</p>
+        <div class="flex flex-col lg:flex-row items-center lg:items-start mb-6">
+          <div class="lg:w-1/2 px-6">
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Find the perfect home for you</h2>
+            <p class="mt-6 text-lg leading-8 text-gray-600">Discover our thoughtfully designed assisted living spaces, where your unique needs are our priority.</p>
+            <div class="mt-10 flex items-center gap-x-6">
+              <a href="/listings" class="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">View more</a>
+            </div>
+          </div>
+
+          <div class="w-full lg:w-1/2 h-[40vh] mt-8 lg:mt-0 lg:pl-6">
+            <div id="map" class="h-full border border-gray-300 shadow-sm"></div>
+          </div>
         </div>
         <div class="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8">
           <div
@@ -21,7 +30,7 @@
             </div>
             <div class="flex flex-1 flex-col p-4">
               <h3 class="text-lg font-bold text-gray-900">
-                <a :href="`https://www.thecreativeone.io/listings/${property.ID}`" target="_blank">
+                <a :href="`/listings/${property.ID}`" target="_blank">
                   <span aria-hidden="true" class="absolute inset-0" />
                   {{ property.address }}
                 </a>
@@ -54,13 +63,11 @@
               <div class="mt-2 text-sm text-gray-600">
                 Status: <span class="font-semibold" :class="property.sold ? 'text-red-600' : 'text-green-600'">{{ property.sold ? 'Sold' : 'Available' }}</span>
               </div>
-              <div class="mt-2 text-sm font-semibold text-blue-600">
-                Assisted Living
-              </div>
+            
               <div class="mt-4 flex justify-end">
                 <a
                   :href="`/property/${property.ID}`"
-                  class="text-red-500 font-semibold hover:text-indigo-500"
+                  class="text-red-500 font-semibold hover:text-red-400"
                 >
                   View Details
                 </a>

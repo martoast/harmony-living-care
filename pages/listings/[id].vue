@@ -1,0 +1,3 @@
+<template>
+    shit
+</template>

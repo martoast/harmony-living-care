@@ -1,6 +1,6 @@
 <template>
     <!-- Content section -->
-    <div class="mx-auto -mt-12 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-8">
+    <!-- <div class="mx-auto -mt-12 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-8">
         <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our mission</h2>
           <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
@@ -21,7 +21,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- Image section -->
       <div class="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
