@@ -35,7 +35,7 @@
                   {{ property.address }}
                 </a>
               </h3>
-              <p class="text-lg font-semibold text-gray-900">{{ formatCurrency(property.price) }}</p>
+              
               <div class="mt-2 flex flex-row items-center text-sm text-gray-600">
                 <span class="inline-block h-5 w-5 text-gray-600 mr-1" aria-hidden="true">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" fill="currentColor">
@@ -50,19 +50,12 @@
                   </svg>
                 </span>
                 {{ property.bathrooms }} bath
-                <div v-if="property.lot_size">
-                  <span class="mx-1">•</span>
-                  <span class="inline-block h-5 w-5 text-gray-600 mr-1" aria-hidden="true">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                      <path d="M6 3a3 3 0 0 0-3 3v1.5a.75.75 0 0 0 1.5 0V6A1.5 1.5 0 0 1 6 4.5h1.5a.75.75 0 0 0 0-1.5H6ZM16.5 3a.75.75 0 0 0 0 1.5H18A1.5 1.5 0 0 1 19.5 6v1.5a.75.75 0 0 0 1.5 0V6a3 3 0 0 0-3-3h-1.5ZM4.5 16.5a.75.75 0 0 0-1.5 0V18a3 3 0 0 0 3 3h1.5a.75.75 0 0 0 0-1.5H6A1.5 1.5 0 0 1 4.5 18v-1.5ZM21 16.5a.75.75 0 0 0-1.5 0V18a1.5 1.5 0 0 1-1.5 1.5h-1.5a.75.75 0 0 0 0 1.5H18a3 3 0 0 0 3-3v-1.5Z" />
-                    </svg>
-                  </span>
-                  {{ property.lot_size }} sqft
+                <div v-if="property.year_built">
+                  <span class="mx-1">• Year built</span>
+                  {{ property.year_built }}
                 </div>
               </div>
-              <div class="mt-2 text-sm text-gray-600">
-                Status: <span class="font-semibold" :class="property.sold ? 'text-red-600' : 'text-green-600'">{{ property.sold ? 'Sold' : 'Available' }}</span>
-              </div>
+              
             
               <div class="mt-4 flex justify-end">
                 <a

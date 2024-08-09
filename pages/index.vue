@@ -8,7 +8,7 @@
       <Features2 id="services"/>
       <Listings id="listings"/>
       <CTA/>
-      <FAQ/>
+      <FAQ id="faq"/>
       <Jobs id="jobs"/>
       <Footer/>
     </div>

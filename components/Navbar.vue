@@ -20,7 +20,8 @@
               <a href="/" class="inline-flex items-center border-b-2 border-red-500 px-1 pt-1 text-sm font-medium text-gray-900">Home</a>
               <a href="#about" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">About us</a>
               <a href="#services" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Services</a>
-              <a href="#" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">FAQs</a>
+              <a href="#listings" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Listings</a>
+              <a href="#faq" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">FAQs</a>
               <a href="#jobs" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Careers</a>
             </div>
           </div>
@@ -64,11 +65,12 @@
       <DisclosurePanel class="md:hidden">
         <div class="space-y-1 pb-3 pt-2">
           <!-- Current: "bg-indigo-50 border-red-500 text-red-500", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" -->
-          <DisclosureButton as="a" href="#" class="block border-l-4 border-red-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-red-500 sm:pl-5 sm:pr-6">Home</DisclosureButton>
-          <DisclosureButton as="a" href="#" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6">Services</DisclosureButton>
-          <DisclosureButton as="a" href="#" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6">About us</DisclosureButton>
-          <DisclosureButton as="a" href="#" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6">FAQs</DisclosureButton>
-          <DisclosureButton as="a" href="#" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6">Careers</DisclosureButton>
+          <DisclosureButton as="a" href="/" class="block border-l-4 border-red-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-red-500 sm:pl-5 sm:pr-6">Home</DisclosureButton>
+          <DisclosureButton as="a" href="#services" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6">Services</DisclosureButton>
+          <DisclosureButton as="a" href="#about" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6">About us</DisclosureButton>
+          <DisclosureButton as="a" href="#faq" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6">FAQs</DisclosureButton>
+          <DisclosureButton as="a" href="#jobs" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6">Careers</DisclosureButton>
+          <DisclosureButton as="a" href="#listings" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6">Listings</DisclosureButton>
         </div>
         <div class="border-t border-gray-200 pb-3 pt-4">
           <div class="flex items-center px-4 sm:px-6">
