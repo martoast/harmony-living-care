@@ -10,4 +10,9 @@ export default defineNuxtConfig({
     format: ['webp', 'png', 'jpg', 'svg'],
     sizes: 'sm:100vw md:50vw lg:400px'
   },
+  runtimeConfig: {
+    public: {
+        MAPBOX_API_TOKEN: process.env.MAPBOX_API_TOKEN,
+    }
+}
 })
