@@ -43,8 +43,14 @@ const data = reactive({
     }
   });
 
-const submitForm = () => {
-  // Handle form submission
+const submitForm = async () => {
   console.log('Form submitted', data.form.city);
+  
+  await navigateTo({
+  path: '/listings',
+  query: {
+    city: data.form.city,
+  }
+})
 }
 </script>
