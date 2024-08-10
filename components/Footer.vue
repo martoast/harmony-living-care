@@ -64,18 +64,18 @@
   
   const navigation = {
     solutions: [
-      { name: 'Assisted Livings', href: '#' },
-      { name: 'Hospice Services', href: '#' },
-      { name: 'Group Home', href: '#' }
+      { name: 'Assisted Livings', href: '#services' },
+      { name: 'Hospice Services', href: '#services' },
+      { name: 'Group Home', href: '#services' }
     ],
     support: [
-      { name: 'Contact', href: '#' },
+      { name: 'Contact', href: '#contact' },
       { name: 'Call now', href: '#' },
     ],
     company: [
-      { name: 'About', href: '#' },
-      { name: 'Services', href: '#' },
-      { name: 'Jobs', href: '#' },
+      { name: 'About', href: '#about' },
+      { name: 'Services', href: '#services' },
+      { name: 'Jobs', href: '#jobs' },
     ],
     legal: [
       { name: 'Privacy', href: '#' },

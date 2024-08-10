@@ -95,7 +95,7 @@ const services = [
     icon: UserGroupIcon,
     title: 'Group Home',
     description: 'Experience the perfect blend of independence and support in our group home setting. Residents enjoy a family-like atmosphere with personalized care, engaging activities, and the comfort of a home-style environment.',
-    imageSrc: '/group-home.jpg',
+    imageSrc: '/group-home2.jpg',
     imageAlt: 'Group home environment',
     testimonial: {
       quote: 'The group home has been a blessing for our family. Mom receives personalized care while maintaining her sense of independence in a warm, home-like setting.',

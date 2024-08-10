@@ -9,7 +9,7 @@
       <Listings id="listings"/>
       <CTA/>
       <FAQ id="faq"/>
-      <Jobs id="jobs"/>
+      <Contact id="contact"/>
       <Footer/>
     </div>
 </template>

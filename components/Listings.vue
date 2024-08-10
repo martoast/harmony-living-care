@@ -5,13 +5,13 @@
         <div class="flex flex-col lg:flex-row items-center lg:items-start mb-6">
           <div class="lg:w-1/2 px-6">
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Find the perfect home for you</h2>
-            <p class="mt-6 text-lg leading-8 text-gray-600">Discover our thoughtfully designed assisted living spaces, where your unique needs are our priority.</p>
-            <div class="mt-10 flex items-center gap-x-6">
-              <a href="/listings" class="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">View more</a>
+            <p class="mt-6 text-lg leading-8 text-gray-600">Discover our thoughtfully designed assisted living spaces, where your unique needs are our priority. With homes across California, Texas, and Florida, you're sure to find the perfect location that feels just right for you or your loved one.</p>
+            <div class="mt-10 mb-6 flex items-center gap-x-6">
+              <a href="#" class="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">View more</a>
             </div>
           </div>
 
-          <div class="w-full lg:w-1/2 h-[40vh] mt-8 lg:mt-0 lg:pl-6">
+            <div class="w-full lg:w-1/2 h-[40vh] mt-8 lg:mt-0 lg:pl-6 hidden sm:block">
             <div id="map" class="h-full border border-gray-300 shadow-sm"></div>
           </div>
         </div>
@@ -69,7 +69,7 @@
           </div>
         </div>
         <!-- Pagination controls -->
-        <div class="mt-8 flex justify-between items-center">
+        <div v-if="totalPages > 1" class="mt-8 flex justify-between items-center">
           <button
             @click="prevPage"
             :disabled="currentPage === 1"
