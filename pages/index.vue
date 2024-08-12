@@ -1,6 +1,5 @@
 <template>
     <div>
-      <Navbar/>
       <Hero/>
       <Stats id="about"/>
       <Mission/>
