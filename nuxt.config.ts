@@ -15,7 +15,7 @@ export default defineNuxtConfig({
       enabled: true
     },
     config: {
-      apiKey: "AIzaSyC_55pD7c1AhunIuNIm4xER8ReL12SBwHg",
+      apiKey: process.env.FIREBASE_API_KEY,
       authDomain: "harmony-homecare.firebaseapp.com",
       projectId: "harmony-homecare",
       storageBucket: "harmony-homecare.appspot.com",
