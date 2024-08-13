@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "staging": "harmony-homecare",
+    "default": "harmony-homecare"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}

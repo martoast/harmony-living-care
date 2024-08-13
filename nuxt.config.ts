@@ -24,9 +24,15 @@ export default defineNuxtConfig({
       measurementId: "G-KVCQQ1LP58"
     },
   },
-  runtimeConfig: {
-    public: {
-        MAPBOX_API_TOKEN: process.env.MAPBOX_API_TOKEN,
+  nitro: {
+    firebase: {
+      gen: 2
     }
-}
+  },
+  runtimeConfig: {
+    FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
+    public: {
+      MAPBOX_API_TOKEN: process.env.MAPBOX_API_TOKEN,
+    }
+  }
 })
