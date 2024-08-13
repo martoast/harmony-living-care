@@ -14,14 +14,15 @@ export default defineNuxtConfig({
     auth: {
       enabled: true
     },
+
     config: {
       apiKey: process.env.FIREBASE_API_KEY,
       authDomain: "harmony-homecare.firebaseapp.com",
       projectId: "harmony-homecare",
       storageBucket: "harmony-homecare.appspot.com",
       messagingSenderId: "532059299550",
-      appId: "1:532059299550:web:539548cefa1886549aec4f",
-      measurementId: "G-KVCQQ1LP58"
+      appId: "1:532059299550:web:add712a4b501f2e49aec4f",
+      measurementId: "G-HWZZPDFX96"
     },
   },
   nitro: {
