@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
-  ssr: false,
+  ssr: true,
   devtools: { enabled: false },
   modules: ['@nuxtjs/tailwindcss', "@nuxt/image", "@pinia/nuxt", "nuxt-vuefire"],
   image: {
@@ -17,21 +17,25 @@ export default defineNuxtConfig({
 
     config: {
       apiKey: process.env.FIREBASE_API_KEY,
-      authDomain: "harmony-homecare.firebaseapp.com",
-      projectId: "harmony-homecare",
-      storageBucket: "harmony-homecare.appspot.com",
-      messagingSenderId: "532059299550",
-      appId: "1:532059299550:web:add712a4b501f2e49aec4f",
-      measurementId: "G-HWZZPDFX96"
+      authDomain: "harmony-livingcare.firebaseapp.com",
+      projectId: "harmony-livingcare",
+      storageBucket: "harmony-livingcare.appspot.com",
+      messagingSenderId: "755371459745",
+      appId: "1:755371459745:web:85242ba9227859a6c01ce0",
+      measurementId: "G-7BQQVFYDLG"
     },
   },
   nitro: {
+    preset: 'firebase',
     firebase: {
-      gen: 2
-    }
+      gen: 2,
+      httpsOptions: {
+        region: 'us-central1',
+        maxInstances: 3,
+      },
+    },
   },
   runtimeConfig: {
-    FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
     public: {
       MAPBOX_API_TOKEN: process.env.MAPBOX_API_TOKEN,
     }
