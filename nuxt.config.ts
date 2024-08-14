@@ -41,5 +41,10 @@ export default defineNuxtConfig({
     public: {
       MAPBOX_API_TOKEN: process.env.MAPBOX_API_TOKEN,
     }
+  },
+  routeRules: {
+    '/': { prerender: true },
+    '/login/**': { ssr: false },
+    '/careers/**': { ssr: false },
   }
 })

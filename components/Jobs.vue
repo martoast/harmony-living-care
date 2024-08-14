@@ -10,7 +10,7 @@
           <div class="w-full lg:max-w-xl lg:flex-auto">
             <h3 class="sr-only">Job openings</h3>
             <ul class="-my-8 divide-y divide-gray-100">
-              <li v-for="opening in jobOpenings" :key="opening.id" class="py-8">
+              <li v-for="opening in jobs" :key="opening.id" class="py-8">
                 <dl class="relative flex flex-wrap gap-x-3">
                   <dt class="sr-only">Role</dt>
                   <dd class="w-full flex-none text-lg font-semibold tracking-tight text-gray-900">
@@ -43,43 +43,8 @@
 
 <script setup>
 
-const jobOpenings = [
-  {
-    id: 1,
-    role: 'Registered Nurse (RN)',
-    href: '#',
-    description:
-      'Provide skilled nursing care and oversee the health needs of our residents. Collaborate with our care team to ensure the highest quality of life for seniors in our assisted living community.',
-    salary: '$70,000 - $90,000 USD',
-    location: 'Various locations',
-  },
-  {
-    id: 2,
-    role: 'Certified Nursing Assistant (CNA)',
-    href: '#',
-    description:
-      'Assist residents with daily living activities, monitor health conditions, and provide compassionate care. Play a crucial role in maintaining the well-being and comfort of our senior residents.',
-    salary: '$30,000 - $40,000 USD',
-    location: 'Various locations',
-  },
-  {
-    id: 3,
-    role: 'Activities Director',
-    href: '#',
-    description:
-      'Plan and implement engaging social, recreational, and educational programs for our residents. Enhance the quality of life for seniors by fostering a vibrant and active community environment.',
-    salary: '$45,000 - $60,000 USD',
-    location: 'Various locations',
-  },
-  {
-    id: 4,
-    role: 'Dietary Manager',
-    href: '#',
-    description:
-      'Oversee meal planning, food preparation, and dietary services for our residents. Ensure nutritious and appealing meals that meet individual dietary needs and preferences.',
-    salary: '$50,000 - $70,000 USD',
-    location: 'Various locations',
-  },
-]
+const { $modelsRef } = useNuxtApp();
+
+const { data: jobs } = useCollection($modelsRef)
 
 </script>
