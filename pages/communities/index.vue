@@ -1,19 +1,13 @@
 <template>
-    <div>
-      <Hero/>
-      <Stats id="about"/>
-      <Mission/>
-      
-      <Features2 id="services"/>
-      <Communities id="communities" :itemsPerPage="3"/>
-      <CTA/>
-      <FAQ id="faq"/>
-      <Contact id="contact"/>
-    </div>
+    <Communities :itemsPerPage="10"/>
 </template>
 
 <script setup>
-import Communities from '~/components/Communities.vue';
+
+    definePageMeta({
+    middleware: ["auth"]
+    })
+
 
     useServerSeoMeta({
         title: 'Harmony HomeCare LLC',

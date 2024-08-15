@@ -67,6 +67,10 @@
   <script setup>
   import { usePropertiesStore } from '~/store/DataStore'
   import { PlusIcon } from '@heroicons/vue/20/solid'
+
+  definePageMeta({
+    middleware: ["auth"]
+    })
   
   const route = useRoute()
   const store = usePropertiesStore()

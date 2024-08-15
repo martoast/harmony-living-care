@@ -16,13 +16,36 @@
               <img class="h-8 w-auto" src="/main-logo.svg" alt="Your Company" />
             </div>
             <div class="hidden md:ml-6 md:flex md:space-x-8">
-              <!-- Current: "border-red-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-              <a href="/" class="inline-flex items-center border-b-2 border-red-500 px-1 pt-1 text-sm font-medium text-gray-900">Home</a>
-              <a href="/#about" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">About us</a>
-              <a href="/#services" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Services</a>
-              <a href="/#communities" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">communities</a>
-              <a href="/#faq" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">FAQs</a>
-              <a href="/careers" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Careers</a>
+              <NuxtLink
+                to="/"
+                :class="{'border-red-500 text-gray-900': isActiveRoute('/'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/')}"
+                class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+              >Home</NuxtLink>
+              <NuxtLink
+                to="/#about"
+                :class="{'border-red-500 text-gray-900': isActiveRoute('/#about'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/#about')}"
+                class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+              >About us</NuxtLink>
+              <NuxtLink
+                to="/#services"
+                :class="{'border-red-500 text-gray-900': isActiveRoute('/#services'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/#services')}"
+                class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+              >Services</NuxtLink>
+              <NuxtLink
+                to="/communities/"
+                :class="{'border-red-500 text-gray-900': isActiveRoute('/communities/'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/communities/')}"
+                class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+              >Communities</NuxtLink>
+              <NuxtLink
+                to="/#faq"
+                :class="{'border-red-500 text-gray-900': isActiveRoute('/#faq'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/#faq')}"
+                class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+              >FAQs</NuxtLink>
+              <NuxtLink
+                to="/careers"
+                :class="{'border-red-500 text-gray-900': isActiveRoute('/careers'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/careers')}"
+                class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+              >Careers</NuxtLink>
             </div>
           </div>
           <div class="flex items-center">
@@ -68,13 +91,13 @@
   
       <DisclosurePanel class="md:hidden">
         <div class="space-y-1 pb-3 pt-2">
-          <!-- Current: "bg-indigo-50 border-red-500 text-red-500", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" -->
-          <DisclosureButton as="a" href="/" class="block border-l-4 border-red-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-red-500 sm:pl-5 sm:pr-6">Home</DisclosureButton>
+          <!-- Current: "bg-red-50 border-red-500 text-red-500", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" -->
+          <DisclosureButton as="a" href="/" class="block border-l-4 border-red-500 bg-red-50 py-2 pl-3 pr-4 text-base font-medium text-red-500 sm:pl-5 sm:pr-6">Home</DisclosureButton>
           <DisclosureButton as="a" href="/#services" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6">Services</DisclosureButton>
           <DisclosureButton as="a" href="/#about" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6">About us</DisclosureButton>
           <DisclosureButton as="a" href="/#faq" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6">FAQs</DisclosureButton>
           <DisclosureButton as="a" href="/careers" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6">Careers</DisclosureButton>
-          <DisclosureButton as="a" href="/#communities" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6">communities</DisclosureButton>
+          <DisclosureButton as="a" href="/communities/" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6">communities</DisclosureButton>
         </div>
         <div v-if="user" class="border-t border-gray-200 pb-3 pt-4">
           <div class="flex items-center px-4 sm:px-6">
@@ -105,6 +128,20 @@
 
   const user = useCurrentUser()
   const auth = useFirebaseAuth()
+
+  const router = useRouter()
+
+  const isActiveRoute = (route) => {
+    const currentPath = router.currentRoute.value.path;
+    
+    // Special case for home route
+    if (route === '/' && currentPath === '/') {
+      return true;
+    }
+    
+    // For other routes, check if the current path starts with the given route
+    return currentPath.startsWith(route) && (currentPath === route || currentPath.charAt(route.length) === '/');
+  };
 
   const signOutUser = async () => {
   try {

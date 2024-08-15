@@ -6,8 +6,8 @@
           <div class="lg:w-1/2 px-6">
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Find the perfect home for you</h2>
             <p class="mt-6 text-lg leading-8 text-gray-600">Discover our thoughtfully designed assisted living spaces, where your unique needs are our priority. With homes across California, Texas, and Florida, you're sure to find the perfect location that feels just right for you or your loved one.</p>
-            <div class="mt-10 mb-6 flex items-center gap-x-6">
-              <a href="/login" class="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">Get started</a>
+            <div v-if="route.name != 'communities'" class="mt-10 mb-6 flex items-center gap-x-6">
+              <a href="/communities/" class="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">See more</a>
             </div>
           </div>
 
@@ -73,7 +73,7 @@
           <button
             @click="prevPage"
             :disabled="currentPage === 1"
-            class="px-4 py-2 text-gray-900 bg-red-500 rounded disabled:opacity-50"
+            class="px-4 py-2 text-white bg-red-500 rounded disabled:opacity-50"
           >
             Previous
           </button>
@@ -83,7 +83,7 @@
           <button
             @click="nextPage"
             :disabled="currentPage === totalPages"
-            class="px-4 py-2 text-gray-900 bg-red-500 rounded disabled:opacity-50"
+            class="px-4 py-2 text-white bg-red-500 rounded disabled:opacity-50"
           >
             Next
           </button>
@@ -96,11 +96,19 @@
   <script setup>
   import { ref, computed, watch } from 'vue'
   import { usePropertiesStore } from '~/store/DataStore'
+
+  const props = defineProps({
+    itemsPerPage: {
+    type: Number,
+    required: true,
+  },
+});
+
+  const route = useRoute();
   
   const store = usePropertiesStore()
   
   const currentPage = ref(1)
-  const itemsPerPage = 10 // Change this to the number of items you want per page
 
   const config = useRuntimeConfig()
 
@@ -108,10 +116,10 @@
   
   const { data, pending, error, refresh } = await useAsyncData(
     'assistedLivingProperties',
-    () => store.getAssistedLiving(currentPage.value, itemsPerPage)
+    () => store.getAssistedLiving(currentPage.value, props.itemsPerPage)
   )
   
-  const totalPages = computed(() => Math.ceil(store.total / itemsPerPage))
+  const totalPages = computed(() => Math.ceil(store.total / props.itemsPerPage))
   
   const properties = computed(() => store.properties.map(property => ({
     ...property,

@@ -46,5 +46,6 @@ export default defineNuxtConfig({
     '/': { prerender: true },
     '/login/**': { ssr: false },
     '/careers/**': { ssr: false },
+    '/communities/**': { ssr: false },
   }
 })
