@@ -5,15 +5,16 @@
       <Mission/>
       
       <Features2 id="services"/>
-      <Listings id="listings"/>
+      <Communities id="communities"/>
       <CTA/>
       <FAQ id="faq"/>
       <Contact id="contact"/>
-      <Footer/>
     </div>
 </template>
 
 <script setup>
+import Communities from '~/components/Communities.vue';
+
 
     useServerSeoMeta({
         title: 'Harmony HomeCare LLC',

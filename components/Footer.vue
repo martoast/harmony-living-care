@@ -64,22 +64,22 @@
   
   const navigation = {
     solutions: [
-      { name: 'Assisted Livings', href: '#services' },
-      { name: 'Hospice Services', href: '#services' },
-      { name: 'Group Home', href: '#services' }
+      { name: 'Assisted Livings', href: '/#services' },
+      { name: 'Hospice Services', href: '/#services' },
+      { name: 'Group Home', href: '/#services' }
     ],
     support: [
-      { name: 'Contact', href: '#contact' },
-      { name: 'Call now', href: '#' },
+      { name: 'Contact', href: '/#contact' },
+      { name: 'Call now', href: '/#' },
     ],
     company: [
-      { name: 'About', href: '#about' },
-      { name: 'Services', href: '#services' },
-      { name: 'Jobs', href: '#jobs' },
+      { name: 'About', href: '/#about' },
+      { name: 'Services', href: '/#services' },
+      { name: 'Jobs', href: '/#jobs' },
     ],
     legal: [
-      { name: 'Privacy', href: '#' },
-      { name: 'Terms', href: '#' },
+      { name: 'Privacy', href: '/#' },
+      { name: 'Terms', href: '/#' },
     ],
     social: [
       {

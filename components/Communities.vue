@@ -7,7 +7,7 @@
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Find the perfect home for you</h2>
             <p class="mt-6 text-lg leading-8 text-gray-600">Discover our thoughtfully designed assisted living spaces, where your unique needs are our priority. With homes across California, Texas, and Florida, you're sure to find the perfect location that feels just right for you or your loved one.</p>
             <div class="mt-10 mb-6 flex items-center gap-x-6">
-              <a href="#" class="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">View more</a>
+              <a href="/login" class="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">Get started</a>
             </div>
           </div>
 
@@ -30,10 +30,10 @@
             </div>
             <div class="flex flex-1 flex-col p-4">
               <h3 class="text-lg font-bold text-gray-900">
-                <a :href="`/listings/${property.ID}`" target="_blank">
+                <NuxtLink :href="`/communities/${property.ID}`">
                   <span aria-hidden="true" class="absolute inset-0" />
                   {{ property.address }}
-                </a>
+                </NuxtLink>
               </h3>
               
               <div class="mt-2 flex flex-row items-center text-sm text-gray-600">

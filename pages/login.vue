@@ -55,13 +55,11 @@ import { useCurrentUser, useFirebaseAuth } from 'vuefire'
 const route = useRoute()
 
 const auth = useFirebaseAuth()
-const user = useCurrentUser()
 
+definePageMeta({
+  middleware: ["loggedin"]
+})
 
-if (user.value) {
-  console.log(user.value)
-  await navigateTo('/')
-}
 
 const error = ref(null)
 

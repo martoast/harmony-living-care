@@ -22,7 +22,7 @@
               <h2 class="text-3xl font-bold tracking-tight text-gray-900">{{ service.title }}</h2>
               <p class="mt-4 text-lg text-gray-500">{{ service.description }}</p>
               <div class="mt-6">
-                <a href="#" class="inline-flex rounded-lg bg-red-500 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-red-500 hover:bg-red-400 hover:ring-red-400">Get started</a>
+                <a href="/login" class="inline-flex rounded-lg bg-red-500 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-red-500 hover:bg-red-400 hover:ring-red-400">Get started</a>
               </div>
             </div>
           </div>
