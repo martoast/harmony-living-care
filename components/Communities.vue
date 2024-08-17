@@ -30,7 +30,7 @@
             </div>
             <div class="flex flex-1 flex-col p-4">
               <h3 class="text-lg font-bold text-gray-900">
-                <NuxtLink :href="`/communities/${property.ID}`">
+                <NuxtLink :href="`/communities/${property.ID}/`">
                   <span aria-hidden="true" class="absolute inset-0" />
                   {{ property.address }}
                 </NuxtLink>
@@ -99,9 +99,14 @@
 
   const props = defineProps({
     itemsPerPage: {
-    type: Number,
-    required: true,
-  },
+      type: Number,
+      required: true,
+    },
+    address: {
+      type: String,
+      required: false,
+      default: null
+    },
 });
 
   const route = useRoute();
@@ -110,13 +115,17 @@
   
   const currentPage = ref(1)
 
+  const sold = ref(null);
+
+  const assistedLiving = ref(true);
+
   const config = useRuntimeConfig()
 
   const googleMapsApiKey = config.public.GOOGLE_MAPS_API_KEY
   
   const { data, pending, error, refresh } = await useAsyncData(
     'assistedLivingProperties',
-    () => store.getAssistedLiving(currentPage.value, props.itemsPerPage)
+    () => store.get(currentPage.value, props.itemsPerPage, sold.value, assistedLiving.value, props.address)
   )
   
   const totalPages = computed(() => Math.ceil(store.total / props.itemsPerPage))

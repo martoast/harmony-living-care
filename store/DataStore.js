@@ -9,7 +9,7 @@ export const usePropertiesStore = defineStore('properties', {
   }),
 
   actions: {
-    async get(page = 1, pageSize = 10, sold = null, assistedLiving = null) {
+    async get(page = 1, pageSize = 10, sold = null, assistedLiving = null, address = null) {
       console.log("Attempting to get properties");
       let url = `https://seashell-app-lestx.ondigitalocean.app/properties/?page=${page}&pageSize=${pageSize}`;
       
@@ -19,6 +19,10 @@ export const usePropertiesStore = defineStore('properties', {
       
       if (assistedLiving !== null) {
         url += `&assistedLiving=${assistedLiving}`;
+      }
+
+      if (address !== null) {
+        url += `&address=${address}`;
       }
       
       try {

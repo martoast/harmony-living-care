@@ -1,5 +1,5 @@
 <template>
-    <Communities :itemsPerPage="10"/>
+     <Communities :address="route.query.address ?? null" :itemsPerPage="10"/>
 </template>
 
 <script setup>
@@ -7,6 +7,8 @@
     definePageMeta({
     middleware: ["auth"]
     })
+
+    const route = useRoute()
 
 
     useServerSeoMeta({

@@ -103,7 +103,9 @@ const onSubmit = async () => {
       },
       body: payload
     });
-    console.log('Form submitted successfully', response);
+
+    alert('Submitted!!! We will be in touch.')
+
     // Reset form after successful submission
     Object.keys(data.form).forEach(key => data.form[key] = '');
     data.form.terms = false;

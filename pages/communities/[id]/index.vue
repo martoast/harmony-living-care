@@ -4,12 +4,12 @@
         <p class="text-base font-semibold leading-7 text-red-500">Assisted Living Property</p>
         <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{{ property.address }}</h1>
         <p class="mt-6 mb-4 text-xl leading-8">{{ formatCurrency(property.price) }} - {{ property.bedrooms }} beds, {{ property.bathrooms }} baths - {{ property.living_area }} sq ft</p>
-        <a href="/login">
-                <button type="button" class="relative inline-flex items-center gap-x-1.5 rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
-                  <PlusIcon class="-ml-0.5 h-5 w-5" aria-hidden="true" />
+        <NuxtLink :href="`/communities/${property.ID}/schedule-tour`">
+            <button type="button" class="relative inline-flex items-center gap-x-1.5 rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
+                <PlusIcon class="-ml-0.5 h-5 w-5" aria-hidden="true" />
                 Schedule a tour
-              </button>
-            </a>
+            </button>
+        </NuxtLink>
         
         <div class="mt-10 max-w-2xl">
           <p>{{ property.description }}</p>

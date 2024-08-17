@@ -49,7 +49,7 @@ const submitForm = async () => {
   await navigateTo({
   path: '/communities',
   query: {
-    city: data.form.city,
+    address: data.form.city,
   }
 })
 }
