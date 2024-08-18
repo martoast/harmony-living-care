@@ -1,6 +1,6 @@
 <template>
     <Disclosure as="nav" class="bg-white shadow" v-slot="{ open }">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div ref="rootElement" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 justify-between">
           <div class="flex">
             <div class="-ml-2 mr-2 flex items-center md:hidden">
@@ -50,12 +50,18 @@
           </div>
           <div class="flex items-center">
             <div v-if="!route.path.includes('communities')" class="flex-shrink-0">
-              <a href="/login">
+              
                 <button type="button" class="relative inline-flex items-center gap-x-1.5 rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
                   <PlusIcon class="-ml-0.5 h-5 w-5" aria-hidden="true" />
-                Schedule a tour
-              </button>
-              </a>
+                  <CalendlyPopupButton
+                      v-bind="options"
+                      :root-element="rootElement"
+                  />
+                 
+                </button>
+             
+              
+              
             </div>
             <div class="hidden md:ml-4 md:flex md:flex-shrink-0 md:items-center">
   
@@ -132,6 +138,13 @@
   const router = useRouter()
 
   const route = useRoute()
+
+
+  const rootElement = ref(null)
+    const options = {
+        url: 'https://calendly.com/contact-harmonylivingcare/schedule-a-tour?primary_color=ef4444', 
+        text: 'Schedule a tour', 
+    }
 
 
   const isActiveRoute = (route) => {

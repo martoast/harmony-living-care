@@ -3,7 +3,13 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   ssr: true,
   devtools: { enabled: false },
-  modules: ['@nuxtjs/tailwindcss', "@nuxt/image", "@pinia/nuxt", "nuxt-vuefire"],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    "@nuxt/image",
+    "@pinia/nuxt",
+    "nuxt-vuefire",
+    "nuxt-calendly"
+  ],
   image: {
     provider: 'netlify',
     domains: ['images.unsplash.com', 'tailwindui.com'],
@@ -42,8 +48,14 @@ export default defineNuxtConfig({
       MAPBOX_API_TOKEN: process.env.MAPBOX_API_TOKEN,
     }
   },
+  // optional config
+  calendly: {
+    isEnabled: true,
+    loadWidgetCSS: true,
+    loadWidgetCloseIconSvg: true
+  },
   routeRules: {
-    '/': { prerender: true },
+    '/': { ssr: false },
     '/login/**': { ssr: false },
     '/careers/**': { ssr: false },
     '/communities/**': { ssr: false },
