@@ -1,5 +1,5 @@
 <template>
-     <Communities :address="route.query.address ?? null" :itemsPerPage="10"/>
+     <Communities :itemsPerPage="10"/>
 </template>
 
 <script setup>

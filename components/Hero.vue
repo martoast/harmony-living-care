@@ -47,7 +47,7 @@ const submitForm = async () => {
   console.log('Form submitted', data.form.city);
   
   await navigateTo({
-  path: '/communities',
+  path: '/communities/',
   query: {
     address: data.form.city,
   }
