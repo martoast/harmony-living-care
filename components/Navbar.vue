@@ -145,7 +145,7 @@
   const rootElement = ref(null)
     const options = {
         url: 'https://calendly.com/e_steban/harmony-discovery-call?primary_color=ef4444', 
-        text: 'Schedule Discovery Call', 
+        text: 'Schedule Call', 
     }
 
 
@@ -168,7 +168,6 @@
     console.log('Signed out successfully')
   } catch (err) {
     console.error('Sign-out error:', err)
-    error.value = 'An error occurred while signing out. Please try again.'
   }
 }
   </script>

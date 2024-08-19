@@ -120,29 +120,49 @@
   }
   
   const submitApplication = async () => {
-    loading.value = true
-    error.value = null
-  
-    const payload = {
-      lead: { ...form, ...job.value }
+  loading.value = true
+  error.value = null
+
+  const formData = new FormData()
+
+  // Append form fields
+  Object.entries(form).forEach(([key, value]) => {
+    if (key !== 'resume' && value !== null && value !== undefined) {
+      formData.append(key, value.toString())
     }
-  
-    try {
-      await $fetch('/api/application-webhook', {
-        method: 'POST',
-        body: payload
-      })
-  
-      alert('Submitted!!! We will be in touch.')
-  
-      // Reset form after successful submission
-      Object.keys(form).forEach(key => form[key] = '')
-      form.agreeToPolicy = false
-    } catch (err) {
-      console.error('Error submitting form', err)
-      error.value = err.response?._data?.errors?.general || 'An error occurred while submitting the form'
-    } finally {
-      loading.value = false
-    }
+  })
+
+  // Append file
+  if (form.resume instanceof File) {
+    formData.append('resume', form.resume, form.resume.name)
   }
+
+  // Append job details
+  if (job.value) {
+    Object.entries(job.value).forEach(([key, value]) => {
+      if (value !== null && value !== undefined) {
+        formData.append(key, value.toString())
+      }
+    })
+  }
+
+  try {
+    const response = await $fetch('/api/application-webhook', {
+      method: 'POST',
+      body: formData
+    })
+
+    console.log('Response:', response)
+    alert('Submitted!!! We will be in touch.')
+
+    // Reset form after successful submission
+    Object.keys(form).forEach(key => form[key] = '')
+    form.agreeToPolicy = false
+  } catch (err) {
+    console.error('Error submitting form', err)
+    error.value = err instanceof Error ? err.message : 'An error occurred while submitting the form'
+  } finally {
+    loading.value = false
+  }
+}
   </script>
