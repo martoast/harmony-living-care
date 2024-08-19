@@ -52,7 +52,7 @@
             <div v-if="!route.path.includes('communities')" class="flex-shrink-0">
               
                 <button type="button" class="relative inline-flex items-center gap-x-1.5 rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
-                  <PlusIcon class="-ml-0.5 h-5 w-5" aria-hidden="true" />
+                  <PhoneIcon class="-ml-0.5 h-5 w-5" aria-hidden="true" />
                   <CalendlyPopupButton
                       v-bind="options"
                       :root-element="rootElement"
@@ -130,7 +130,7 @@
   <script setup>
   import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
   import { Bars3Icon, BellIcon, XMarkIcon, UserIcon } from '@heroicons/vue/24/outline'
-  import { PlusIcon } from '@heroicons/vue/20/solid'
+  import { PhoneIcon } from '@heroicons/vue/20/solid'
   import { useCurrentUser, useFirebaseAuth } from 'vuefire'
   import { signOut } from 'firebase/auth'
 
@@ -144,8 +144,8 @@
 
   const rootElement = ref(null)
     const options = {
-        url: 'https://calendly.com/contact-harmonylivingcare/schedule-a-tour?primary_color=ef4444', 
-        text: 'Schedule a tour', 
+        url: 'https://calendly.com/e_steban/harmony-discovery-call?primary_color=ef4444', 
+        text: 'Schedule Discovery Call', 
     }
 
 

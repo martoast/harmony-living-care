@@ -24,7 +24,7 @@ const property = computed(() => ({
 const user = useCurrentUser()
 
 const options = computed(() => ({
-  url: `https://calendly.com/contact-harmonylivingcare/schedule-a-tour?primary_color=ef4444` +
+  url: `https://calendly.com/e_steban/harmony-discovery-call?primary_color=ef4444` +
        `&email=${encodeURIComponent(user.value.email)}` +
        `&a1=${encodeURIComponent(`I'm interested in ${property.value.address}`)}`,
 }))
