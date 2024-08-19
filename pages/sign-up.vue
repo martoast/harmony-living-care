@@ -101,15 +101,17 @@
     </div>
   </div>
 </template>
-
 <script setup>
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 import { useFirebaseAuth } from 'vuefire'
+import { watch } from 'vue'
 
 const route = useRoute()
+const router = useRouter()
 const auth = useFirebaseAuth()
 
 const error = ref(null)
+const currentUser = ref(null)
 
 const data = reactive({
   loading: false,
@@ -127,7 +129,7 @@ const hasError = (field) => {
 }
 
 watch(
-  data.form,
+  () => data.form,
   (newForm) => {
     data.errors = {}
   },
@@ -137,6 +139,27 @@ watch(
 const passwordsMatch = computed(() => {
   return data.form.password === data.form.password_confirmation
 })
+
+// Watch for auth state changes
+watch(() => auth, (newAuth) => {
+  if (newAuth) {
+    onAuthStateChanged(newAuth, (user) => {
+      currentUser.value = user
+      if (user) {
+        redirectAfterLogin()
+      }
+    })
+  }
+}, { immediate: true })
+
+const redirectAfterLogin = () => {
+  const redirectPath = route.query.redirect
+  if (redirectPath && typeof redirectPath === 'string') {
+    router.push(redirectPath)
+  } else {
+    router.push('/')
+  }
+}
 
 const onSubmit = async () => {
   if (!passwordsMatch.value) {
@@ -150,13 +173,7 @@ const onSubmit = async () => {
     
     await createUserWithEmailAndPassword(auth, data.form.email, data.form.password)
     
-    // Check for redirect query parameter
-    const redirectPath = route.query.redirect
-    if (redirectPath && typeof redirectPath === 'string') {
-      await navigateTo(redirectPath)
-    } else {
-      await navigateTo('/')
-    }
+    // Redirection will be handled by the watcher
   } catch (err) {
     error.value = err.message
     if (err.code === 'auth/email-already-in-use') {
@@ -167,5 +184,10 @@ const onSubmit = async () => {
   } finally {
     data.loading = false
   }
+}
+
+// If user is already logged in, redirect
+if (currentUser.value) {
+  redirectAfterLogin()
 }
 </script>
