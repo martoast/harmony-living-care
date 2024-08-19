@@ -15,7 +15,7 @@
               <dl class="flex flex-wrap gap-x-3">
                 <dt class="sr-only">Role</dt>
                 <dd class="w-full flex-none text-lg font-semibold tracking-tight text-gray-900">
-                  <a :href="opening.href">
+                  <a :href="'/careers/apply?id=' + opening.id">
                     {{ opening.role }}
                     <span class="absolute inset-0" aria-hidden="true" />
                   </a>
@@ -33,9 +33,9 @@
                 </dd>
               </dl>
               <div class="mt-4 flex justify-end">
-                <a :href="opening.href" class="text-sm font-semibold leading-6 text-red-500 hover:text-red-400">
+                <p class="text-sm font-semibold leading-6 text-red-500 hover:text-red-400">
                   Apply now! <span aria-hidden="true">&rarr;</span>
-                </a>
+                </p>
               </div>
             </div>
           </li>

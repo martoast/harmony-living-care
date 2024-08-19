@@ -75,11 +75,11 @@
     company: [
       { name: 'About', href: '/#about' },
       { name: 'Services', href: '/#services' },
-      { name: 'Jobs', href: '/#jobs' },
+      { name: 'Careers', href: '/careers' },
     ],
     legal: [
-      { name: 'Privacy', href: '/#' },
-      { name: 'Terms', href: '/#' },
+      { name: 'Privacy policy', href: '/privacy-policy' },
+      { name: 'Terms of service', href: '/terms-of-service' },
     ],
     social: [
       {
