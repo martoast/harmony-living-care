@@ -70,7 +70,7 @@
     ],
     support: [
       { name: 'Contact', href: '/#contact' },
-      { name: 'Call now', href: '/#' },
+      { name: 'Schedule a call', href: '/#cta' },
     ],
     company: [
       { name: 'About', href: '/#about' },

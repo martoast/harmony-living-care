@@ -1,6 +1,6 @@
 <template>
   <div class="relative overflow-hidden bg-white py-24 sm:py-32">
-    <div class="relative mx-auto max-w-7xl px-6lg:px-8">
+    <div ref="rootElement" class="relative mx-auto max-w-7xl px-6lg:px-8">
       <h2 class="text-center text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">Compassionate Care Tailored to You</h2>
       <p class="mx-auto mt-4 max-w-3xl text-center text-xl text-gray-500">
         From personalized care plans to specialized memory care, our compassionate team is dedicated to providing exceptional support in a warm and nurturing environment designed for comfort and well-being.
@@ -22,7 +22,13 @@
               <h2 class="text-3xl font-bold tracking-tight text-gray-900">{{ service.title }}</h2>
               <p class="mt-4 text-lg text-gray-500">{{ service.description }}</p>
               <div class="mt-6">
-                <a href="/login" class="inline-flex rounded-lg bg-red-500 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-red-500 hover:bg-red-400 hover:ring-red-400">Get started</a>
+                <button type="button" class="relative inline-flex items-center gap-x-1.5 rounded-md bg-red-500 px-3 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
+                  <CalendlyPopupButton
+                      v-bind="options"
+                      :root-element="rootElement"
+                  />
+                 
+                </button>
               </div>
             </div>
           </div>
@@ -65,6 +71,12 @@
 
 <script setup>
 import { PlusIcon, HomeIcon, UserGroupIcon } from '@heroicons/vue/24/outline'
+
+const rootElement = ref(null)
+    const options = {
+        url: 'https://calendly.com/e_steban/harmony-discovery-call?primary_color=ef4444', 
+        text: 'Schedule a call', 
+    }
 
 const services = [
   {

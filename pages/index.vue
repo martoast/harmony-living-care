@@ -6,7 +6,7 @@
       
       <Features2 id="services"/>
       <Communities id="communities" :itemsPerPage="3"/>
-      <CTA/>
+      <CTA id="cta"/>
       <FAQ id="faq"/>
       <Contact id="contact"/>
     </div>
