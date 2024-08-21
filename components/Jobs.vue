@@ -54,40 +54,36 @@
 const jobs = [
   {
     id: 1,
-    role: 'Registered Nurse (RN)',
+    role: 'Certified Nursing Assistant (CNA) Med Surg',
     href: '#',
-    description:
-      'Provide skilled nursing care and oversee the health needs of our residents. Collaborate with our care team to ensure the highest quality of life for seniors in our assisted living community.',
-    salary: '$70,000 - $90,000 USD',
+    description: 'Assist patients in med-surg units with daily living activities, monitor vital signs, and provide basic nursing care. Work closely with nurses to ensure quality patient care and comfort during hospital stays.',
+    salary: '$35,000 - $45,000 USD',
     location: 'San Diego, California',
   },
   {
     id: 2,
-    role: 'Certified Nursing Assistant (CNA)',
+    role: 'Nurse (Clinical/Ambulatory)',
     href: '#',
-    description:
-      'Assist residents with daily living activities, monitor health conditions, and provide compassionate care. Play a crucial role in maintaining the well-being and comfort of our senior residents.',
-    salary: '$30,000 - $40,000 USD',
+    description: 'Provide skilled nursing care in clinical or ambulatory settings. Assess patients, administer treatments, and collaborate with healthcare teams to deliver comprehensive patient care. May involve working in outpatient clinics or specialized medical units.',
+    salary: '$75,000 - $95,000 USD',
     location: 'San Diego, California',
   },
   {
     id: 3,
-    role: 'Activities Director',
+    role: 'Concierge',
     href: '#',
-    description:
-      'Plan and implement engaging social, recreational, and educational programs for our residents. Enhance the quality of life for seniors by fostering a vibrant and active community environment.',
-    salary: '$45,000 - $60,000 USD',
+    description: 'Serve as the first point of contact for guests and residents. Provide exceptional customer service, assist with inquiries, manage reservations, and coordinate various guest services to ensure a pleasant and comfortable experience.',
+    salary: '$30,000 - $40,000 USD',
     location: 'Dallas, Texas',
   },
   {
     id: 4,
-    role: 'Dietary Manager',
+    role: 'Full Time Concierge',
     href: '#',
-    description:
-      'Oversee meal planning, food preparation, and dietary services for our residents. Ensure nutritious and appealing meals that meet individual dietary needs and preferences.',
-    salary: '$50,000 - $70,000 USD',
+    description: 'Manage all aspects of guest relations and services on a full-time basis. Handle complex guest requests, oversee lobby operations, coordinate with different departments, and maintain high standards of service excellence throughout all shifts.',
+    salary: '$35,000 - $45,000 USD',
     location: 'San Antonio, Texas',
-  },
+  }
 ]
 
 </script>

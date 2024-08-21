@@ -81,8 +81,8 @@ const rootElement = ref(null)
 const services = [
   {
     icon: PlusIcon,
-    title: 'Hospice Services',
-    description: 'Our hospice services provide compassionate end-of-life care, ensuring dignity and comfort for your loved one during their final journey.',
+    title: 'Skilled Nursing',
+    description: "Our expert nurses provide comprehensive, high-quality care tailored to each resident's unique needs. With advanced training and years of experience, our nursing team ensures the highest standards of health management and personalized attention for your loved ones.",
     imageSrc: '/feature1.jpg',
     imageAlt: 'Hospice care environment',
     testimonial: {

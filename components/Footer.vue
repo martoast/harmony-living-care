@@ -64,17 +64,19 @@
   
   const navigation = {
     solutions: [
-      { name: 'Assisted Livings', href: '/#services' },
-      { name: 'Hospice Services', href: '/#services' },
-      { name: 'Group Home', href: '/#services' }
+      { name: 'Assisted Living', href: '/services/assisted-living' },
+      { name: 'Independent Living', href: '/services/independent-living' },
+      { name: 'Memory Care', href: '/services/memory-care' },
+      { name: 'Skilled Nursing', href: '/services/skilled-nursing' }
     ],
     support: [
       { name: 'Contact', href: '/#contact' },
       { name: 'Schedule a call', href: '/#cta' },
+      { name: 'Hiring Process', href: '/hiring-process' },
     ],
     company: [
       { name: 'About', href: '/#about' },
-      { name: 'Services', href: '/#services' },
+      { name: 'Care Services', href: '/#services' },
       { name: 'Careers', href: '/careers' },
     ],
     legal: [
