@@ -65,43 +65,16 @@
   <script setup>
   import { ref, reactive, computed } from 'vue'
   import { useRoute } from 'vue-router'
+  import { doc } from 'firebase/firestore'
+
+  const { $modelsRef } = useNuxtApp();
   
   const route = useRoute()
-  const jobId = parseInt(route.query.id)
   
-  const jobs = [
-    {
-      id: 1,
-      role: 'Registered Nurse (RN)',
-      description: 'Provide skilled nursing care and oversee the health needs of our residents.',
-      salary: '$70,000 - $90,000 USD',
-      location: 'San Diego, California',
-    },
-    {
-      id: 2,
-      role: 'Certified Nursing Assistant (CNA)',
-      description: 'Assist residents with daily living activities and monitor health conditions.',
-      salary: '$30,000 - $40,000 USD',
-      location: 'San Diego, California',
-    },
-    {
-      id: 3,
-      role: 'Activities Director',
-      description: 'Plan and implement engaging programs for our residents.',
-      salary: '$45,000 - $60,000 USD',
-      location: 'Dallas, Texas',
-    },
-    {
-      id: 4,
-      role: 'Dietary Manager',
-      description: 'Oversee meal planning and food preparation for our residents.',
-      salary: '$50,000 - $70,000 USD',
-      location: 'San Antonio, Texas',
-    },
-  ]
-  
-  const job = computed(() => jobs.find(j => j.id === jobId))
-  
+  const jobId = route.query.id
+
+  const { data: job } = await useDocument(doc($modelsRef, jobId))
+
   const form = reactive({
     firstName: '',
     lastName: '',
