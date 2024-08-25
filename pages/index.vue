@@ -15,30 +15,6 @@
 <script setup>
 import Communities from '~/components/Communities.vue';
 
-    useServerSeoMeta({
-        title: 'Harmony HomeCare LLC',
-        ogTitle: 'Harmony HomeCare LLC',
-    
-        author: 'Alex Martos',
-        charset: 'utf-8',
-    
-        description: "Making Home a Haven of Health and Happiness",
-        ogDescription: "Making Home a Haven of Health and Happiness",
-    
-        robots: 'index, follow',
-        googleSiteVerification: '',
-    
-        appleMobileWebAppCapable: 'yes',
-        mobileWebAppCapable: 'yes',
-    
-        ogImage: '/public/main-logo.svg',
-    
-        ogLocaleAlternate: ['es_LA'],
-        ogType: 'website',
-        viewport: 'width=device-width, initial-scale=1',
-    })
-
-
     const nuxtApp = useNuxtApp()
 
     const config = useRuntimeConfig()

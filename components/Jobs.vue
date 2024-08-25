@@ -47,43 +47,8 @@
 
 <script setup>
 
-// const { $modelsRef } = useNuxtApp();
+const { $modelsRef } = useNuxtApp();
 
-// const { data: jobs } = useCollection($modelsRef)
-
-const jobs = [
-  {
-    id: 1,
-    role: 'Certified Nursing Assistant (CNA) Med Surg',
-    href: '#',
-    description: 'Assist patients in med-surg units with daily living activities, monitor vital signs, and provide basic nursing care. Work closely with nurses to ensure quality patient care and comfort during hospital stays.',
-    salary: '$35,000 - $45,000 USD',
-    location: 'San Diego, California',
-  },
-  {
-    id: 2,
-    role: 'Nurse (Clinical/Ambulatory)',
-    href: '#',
-    description: 'Provide skilled nursing care in clinical or ambulatory settings. Assess patients, administer treatments, and collaborate with healthcare teams to deliver comprehensive patient care. May involve working in outpatient clinics or specialized medical units.',
-    salary: '$75,000 - $95,000 USD',
-    location: 'San Diego, California',
-  },
-  {
-    id: 3,
-    role: 'Concierge',
-    href: '#',
-    description: 'Serve as the first point of contact for guests and residents. Provide exceptional customer service, assist with inquiries, manage reservations, and coordinate various guest services to ensure a pleasant and comfortable experience.',
-    salary: '$30,000 - $40,000 USD',
-    location: 'Dallas, Texas',
-  },
-  {
-    id: 4,
-    role: 'Full Time Concierge',
-    href: '#',
-    description: 'Manage all aspects of guest relations and services on a full-time basis. Handle complex guest requests, oversee lobby operations, coordinate with different departments, and maintain high standards of service excellence throughout all shifts.',
-    salary: '$35,000 - $45,000 USD',
-    location: 'San Antonio, Texas',
-  }
-]
+const { data: jobs } = useCollection($modelsRef)
 
 </script>
