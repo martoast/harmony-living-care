@@ -64,9 +64,7 @@
 
             <div class="mt-3">
               <h2 class="sr-only">Property information</h2>
-              <p class="text-3xl font-semibold tracking-tight text-gray-900 mb-3">
-                {{ formatCurrency(property.price) }}
-              </p>
+              
               <p class="text-lg text-gray-900">
                 {{ property.bedrooms }} beds | {{ property.bathrooms }} baths | {{ property.living_area }} sq ft
               </p>
