@@ -135,6 +135,9 @@
               </ul>
             </div>
 
+
+            <h1>map here</h1>
+
             
           </div>
         </div>
@@ -166,6 +169,24 @@ const { $locally } = useNuxtApp()
 
 const route = useRoute()
 const store = usePropertiesStore()
+
+const nuxtApp = useNuxtApp()
+
+const config = useRuntimeConfig()
+
+const mapboxgl = nuxtApp.mapboxgl
+
+const access_token = config.public.MAPBOX_API_TOKEN
+
+let  map = {}
+
+const map_config = {
+            style: "mapbox://styles/mapbox/streets-v12",
+            zoom: 3,
+            pitch: 0,
+            bearing: 0,
+            center: [-100.486052, 37.830348],
+        }
 
 await useAsyncData('property', () => store.find(route.params.id))
 
