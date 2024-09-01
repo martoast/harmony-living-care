@@ -84,11 +84,13 @@ const navigation = {
     { name: 'Contact', href: '/#contact' },
     { name: 'Schedule a call', href: '/#cta' },
     { name: 'Hiring Process', href: '/hiring-process' },
+    { name: 'Life at Harmony', href: '/life-at-harmony' },
   ],
   company: [
     { name: 'About', href: '/#about' },
     { name: 'Care Services', href: '/#services' },
     { name: 'Careers', href: '/careers' },
+    { name: 'Invest with us', href: '/invest' },
   ],
   legal: [
     { name: 'Privacy policy', href: '/privacy-policy' },

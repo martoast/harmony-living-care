@@ -1,119 +1,115 @@
 <template>
-    <div>
-        <div class="relative bg-gray-50">
-      <main class="lg:relative">
-        <div class="mx-auto w-full max-w-7xl pt-16 pb-20 text-center lg:py-48 lg:text-left">
-          <div class="px-6 lg:w-1/2 sm:px-8 xl:pr-16">
-            <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
-              <span class="block xl:inline">Making Home a Haven of</span>
-              {{ ' ' }}
-              <span class="block text-red-500 xl:inline">Health and Happiness</span>
-            </h1>
-            <p class="mx-auto mt-3 max-w-md text-lg text-gray-500 sm:text-xl md:mt-5 md:max-w-3xl">
-                At Harmony Homecare, we transform assisted living into a nurturing haven of comfort and care. Our dedicated team ensures that every resident enjoys independence, dignity, and a vibrant community life.
-            </p>
-            <div class="mt-10 sm:flex sm:justify-center lg:justify-start">
-              <div class="rounded-md shadow">
-                <a href="#" class="flex w-full items-center justify-center rounded-md border border-transparent bg-red-500 px-8 py-3 text-base font-medium text-white hover:bg-red-400 md:py-4 md:px-10 md:text-lg">View video</a>
-              </div>
-              <div class="mt-3 sm:mt-0 sm:ml-3">
-                <a href="/community" class="flex w-full items-center justify-center rounded-md border border-transparent bg-white px-8 py-3 text-base font-medium text-red-500 hover:bg-gray-50 md:py-4 md:px-10 md:text-lg">Find a community</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="relative h-64 w-full sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-1/2">
-          <img
-            class="absolute inset-0 h-full w-full object-cover"
-            src="/help3.jpg"
-            alt=""
-          />
-        </div>
-      </main>
-    </div>
-    <div class="bg-white py-24 sm:py-32">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8">
-      <div class="mx-auto max-w-xl text-center">
-        <h2 class="text-lg font-semibold leading-8 tracking-tight text-red-500">Testimonials</h2>
-        <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Hear from our happy residents and their families</p>
+  <div class="bg-white px-6 py-32 lg:px-8">
+    <div class="mx-auto max-w-3xl text-base leading-7 text-gray-700">
+      <p class="text-base font-semibold leading-7 text-red-500">Welcome to</p>
+      <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Life at Harmony Homecare</h1>
+      <p class="mt-6 text-xl leading-8">Experience exceptional care and comfort in our assisted living community. At Harmony Homecare, we specialize in creating a nurturing environment where residents thrive with personalized attention and engaging activities.</p>
+      
+      <div class="mt-10 max-w-2xl">
+        <p>Our commitment to providing high-quality care and fostering a sense of community sets us apart. With a range of specialized services and a team of dedicated professionals, we ensure that every resident receives the support they need to live their best life.</p>
+        
+        <h2 class="mt-16 text-2xl font-bold tracking-tight text-gray-900">Our Specialized Services</h2>
+        <ul role="list" class="mt-8 max-w-xl space-y-8 text-gray-600">
+          <li v-for="service in services" :key="service.title" class="flex gap-x-3">
+            <component :is="service.icon" class="mt-1 h-5 w-5 flex-none text-red-500" aria-hidden="true" />
+            <span>
+              <strong class="font-semibold text-gray-900">{{ service.title }}.</strong> {{ service.description }}
+            </span>
+          </li>
+        </ul>
+        
+        <h2 class="mt-16 text-2xl font-bold tracking-tight text-gray-900">Why Choose Harmony Homecare?</h2>
+        <p class="mt-6">At Harmony Homecare, we understand that choosing an assisted living facility is a significant decision. Here's why our residents and their families love being part of our community:</p>
+        <ul class="mt-8 space-y-4 text-gray-600">
+          <li class="flex gap-x-3">
+            <CheckCircleIcon class="mt-1 h-5 w-5 flex-none text-red-500" aria-hidden="true" />
+            <span>Personalized care plans tailored to each resident's unique needs</span>
+          </li>
+          <li class="flex gap-x-3">
+            <CheckCircleIcon class="mt-1 h-5 w-5 flex-none text-red-500" aria-hidden="true" />
+            <span>Engaging activities and social programs to promote well-being</span>
+          </li>
+          <li class="flex gap-x-3">
+            <CheckCircleIcon class="mt-1 h-5 w-5 flex-none text-red-500" aria-hidden="true" />
+            <span>Comfortable, home-like environments in various settings</span>
+          </li>
+          <li class="flex gap-x-3">
+            <CheckCircleIcon class="mt-1 h-5 w-5 flex-none text-red-500" aria-hidden="true" />
+            <span>Highly trained and compassionate staff available 24/7</span>
+          </li>
+        </ul>
       </div>
-      <div class="mx-auto mt-16 flow-root max-w-2xl sm:mt-20 lg:mx-0 lg:max-w-none">
-        <div class="-mt-8 sm:-mx-4 sm:columns-2 sm:text-[0] lg:columns-3">
-          <div v-for="testimonial in testimonials" :key="testimonial.author.handle" class="pt-8 sm:inline-block sm:w-full sm:px-4">
-            <figure class="rounded-2xl bg-gray-50 p-8 text-sm leading-6">
-              <blockquote class="text-gray-900">
-                <p>{{ `"${testimonial.body}"` }}</p>
-              </blockquote>
-              <figcaption class="mt-6 flex items-center gap-x-4">
-                <img class="h-10 w-10 rounded-full bg-gray-50" :src="testimonial.author.imageUrl" alt="" />
-                <div>
-                  <div class="font-semibold text-gray-900">{{ testimonial.author.name }}</div>
-                  <div class="text-gray-600">{{ testimonial.author.relation }}</div>
-                </div>
-              </figcaption>
-            </figure>
-          </div>
-        </div>
+      
+      <div v-for="service in services" :key="service.title" class="mt-16">
+        <figure>
+          <img class="aspect-video rounded-xl bg-gray-50 object-cover" :src="service.imageSrc" :alt="service.imageAlt" />
+          <figcaption class="mt-4 flex gap-x-2 text-sm leading-6 text-gray-500">
+            <InformationCircleIcon class="mt-0.5 h-5 w-5 flex-none text-gray-300" aria-hidden="true" />
+            {{ service.title }}
+          </figcaption>
+        </figure>
+        
+        <figure class="mt-10 border-l border-red-500 pl-9">
+          <blockquote class="font-semibold text-gray-900">
+            <p>"{{ service.testimonial.quote }}"</p>
+          </blockquote>
+          <figcaption class="mt-6 flex gap-x-4">
+            <img class="h-6 w-6 flex-none rounded-full bg-gray-50" :src="service.testimonial.avatarSrc" alt="" />
+            <div class="text-sm leading-6"><strong class="font-semibold text-gray-900">{{ service.testimonial.author }}</strong></div>
+          </figcaption>
+        </figure>
+      </div>
+      
+      <div class="mt-16 max-w-2xl">
+        <h2 class="text-2xl font-bold tracking-tight text-gray-900">Join Our Harmony Homecare Family</h2>
+        <p class="mt-6">Experience the warmth and support of our community. Whether you're looking for assisted living, skilled nursing, or a group home setting, Harmony Homecare is here to provide the care and comfort you deserve. Contact us today to schedule a tour and see firsthand why our residents love calling Harmony Homecare their home.</p>
       </div>
     </div>
+
+    <CTA/>
   </div>
+</template>
 
-    </div>
-    
-  </template>
-  
-  <script setup>
+<script setup>
+import { ref } from 'vue'
+import { CheckCircleIcon, InformationCircleIcon, PlusIcon, HomeIcon, UserGroupIcon } from '@heroicons/vue/20/solid'
 
-const testimonials = [
+const services = ref([
   {
-    body: "Moving to this assisted living community was the best decision I've made. The staff is incredibly caring, and I've made so many new friends. I feel safe, engaged, and truly at home here.",
-    author: {
-      name: 'Margaret Johnson',
-      relation: 'Resident',
-      imageUrl: '',
-    },
+    icon: PlusIcon,
+    title: 'Skilled Nursing',
+    description: "Our expert nurses provide comprehensive, high-quality care tailored to each resident's unique needs. With advanced training and years of experience, our nursing team ensures the highest standards of health management and personalized attention for your loved ones.",
+    imageSrc: '/feature1.jpg',
+    imageAlt: 'Hospice care environment',
+    testimonial: {
+      quote: 'The hospice team provided incredible support during my father\'s final days. Their compassion and expertise made a difficult time more bearable.',
+      author: 'Michael Thompson, Son of Patient',
+      avatarSrc: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80'
+    }
   },
   {
-    body: "The peace of mind we have knowing our mother is well-cared for is priceless. The staff goes above and beyond, and the activities keep her active and happy. We couldn't ask for a better place.",
-    author: {
-      name: 'Robert Thompson',
-      relation: 'Son of Resident',
-      imageUrl: '',
-    },
+    icon: HomeIcon,
+    title: 'Assisted Living',
+    description: 'Discover a supportive environment where personalized care plans and enriching activities promote independence and well-being for our residents.',
+    imageSrc: 'https://www.harmonylivingcare.com/wp-content/themes/harmonyhomecarera435/images/slider/3.jpg',
+    imageAlt: 'Assisted living community',
+    testimonial: {
+      quote: 'Moving to assisted living was a big step, but the staff here made the transition smooth and enjoyable. I feel like I\'m part of a caring community.',
+      author: 'Eleanor Simmons, Resident',
+      avatarSrc: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80'
+    }
   },
   {
-    body: 'I was hesitant about assisted living, but this place has exceeded all my expectations. The independence I maintain, combined with the support when I need it, has greatly improved my quality of life.',
-    author: {
-      name: 'George Williams',
-      relation: 'Resident',
-      imageUrl: '',
-    },
-  },
-  {
-    body: "As a healthcare professional, I'm impressed by the level of care provided here. The staff is well-trained, compassionate, and truly dedicated to the well-being of each resident.",
-    author: {
-      name: 'Dr. Emily Chen',
-      relation: 'Visiting Physician',
-      imageUrl: '',
-    },
-  },
-  {
-    body: "The transition for my dad was smooth and the staff was incredibly supportive. He's now more active than he's been in years, participating in various programs and outings. It's wonderful to see him thriving.",
-    author: {
-      name: 'Sarah Martinez',
-      relation: 'Daughter of Resident',
-      imageUrl: '',
-    },
-  },
-  {
-    body: "I love the sense of community here. From group activities to shared meals, there's always an opportunity to socialize. The staff does an excellent job of creating a warm, family-like atmosphere.",
-    author: {
-      name: 'Frank Anderson',
-      relation: 'Resident',
-      imageUrl: '',
-    },
-  },
-]
-
-
-  </script>
+    icon: UserGroupIcon,
+    title: 'Group Home',
+    description: 'Experience the perfect blend of independence and support in our group home setting. Residents enjoy a family-like atmosphere with personalized care, engaging activities, and the comfort of a home-style environment.',
+    imageSrc: '/group-home2.jpg',
+    imageAlt: 'Group home environment',
+    testimonial: {
+      quote: 'The group home has been a blessing for our family. Mom receives personalized care while maintaining her sense of independence in a warm, home-like setting.',
+      author: 'Sarah Johnson, Daughter of Resident',
+      avatarSrc: 'https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80'
+    }
+  }
+])
+</script>

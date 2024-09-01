@@ -58,7 +58,7 @@
     },
     {
       title: 'Invest with us',
-      href: '/#',
+      href: '/invest',
       icon: CurrencyDollarIcon,
       iconForeground: 'text-red-700',
       iconBackground: 'bg-red-50',

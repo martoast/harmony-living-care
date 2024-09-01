@@ -117,13 +117,13 @@
               </dl>
             </div> -->
 
-            <div v-if="property.nearby_hospitals.length" class="mt-8">
+            <div v-if="property.nearby_hospitals.length" class="my-8">
               <h3 class="text-lg font-medium text-gray-900">Nearby Medical Facilities</h3>
               <p class="mt-2 text-sm text-gray-500">
                 Access to quality healthcare is crucial for assisted living. Here are some nearby medical facilities:
               </p>
               <ul class="mt-4 space-y-4">
-                <li v-for="hospital in property.nearby_hospitals.slice(0, 3)" :key="hospital.name" class="flex items-start">
+                <li v-for="hospital in sortedHospitals.slice(0, 5)" :key="hospital.name" class="flex items-start">
                   <svg class="mt-1 h-5 w-5 flex-shrink-0 text-green-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
                   </svg>
@@ -136,7 +136,9 @@
             </div>
 
 
-            <h1>map here</h1>
+            <div class="w-full h-[40vh] mt-8 lg:mt-0">
+              <div id="map" class="h-full border border-gray-300 shadow-sm"></div>
+            </div>
 
             
           </div>
@@ -178,15 +180,6 @@ const mapboxgl = nuxtApp.mapboxgl
 
 const access_token = config.public.MAPBOX_API_TOKEN
 
-let  map = {}
-
-const map_config = {
-            style: "mapbox://styles/mapbox/streets-v12",
-            zoom: 3,
-            pitch: 0,
-            bearing: 0,
-            center: [-100.486052, 37.830348],
-        }
 
 await useAsyncData('property', () => store.find(route.params.id))
 
@@ -200,6 +193,22 @@ const property = computed(() => ({
   price_history: store.property.price_history ? JSON.parse(store.property.price_history) : [],
 }))
 
+let  map = {}
+
+const sortedHospitals = computed(() => {
+  return property.value.nearby_hospitals.slice().sort((a, b) => b.rating - a.rating);
+})
+
+
+
+const map_config = {
+            style: "mapbox://styles/mapbox/streets-v12",
+            zoom: 3,
+            pitch: 0,
+            bearing: 0,
+            center: [-100.486052, 37.830348],
+        }
+        
 const isModalOpen = ref(false)
 const selectedImageIndex = ref(0)
 
@@ -218,4 +227,30 @@ function formatCurrency(value) {
 const handleBackButton = async () => {
   await navigateTo('/communities/')
 }
+
+const initMap = () => {
+    mapboxgl.accessToken = access_token
+
+    // Adjust zoom based on screen width
+    const screenWidth = window.innerWidth
+    const isMobile = screenWidth <= 768 // Define your mobile breakpoint
+
+    map_config.zoom = isMobile ? 2 : 3 // Adjust zoom levels
+
+        map = new mapboxgl.Map({
+            container: "map",
+            style: map_config.style,
+            zoom: map_config.zoom,
+            pitch: map_config.pitch,
+            bearing: map_config.bearing,
+            center: map_config.center,
+            dragPan: true,
+            antialias: true,
+        }) 
+    }
+
+    onMounted(() => {
+    initMap();
+        
+    });
 </script>
