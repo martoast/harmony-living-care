@@ -1,7 +1,7 @@
 import { defineEventHandler, readBody } from 'h3'
 
 export default defineEventHandler(async (event) => {
-  const webhookUrl = 'https://hooks.zapier.com/hooks/catch/14797557/23r92ro/'
+  const webhookUrl = 'https://hooks.zapier.com/hooks/catch/14797557/2oqj0p4/'
   const headers = { 'Content-Type': 'application/json' }
 
   try {

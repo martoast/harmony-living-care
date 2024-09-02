@@ -73,7 +73,7 @@
             </div>
             <div v-if="data.errors.general" class="mt-4 text-red-600">{{ data.errors.general }}</div>
             <div class="mt-8 flex justify-end">
-              <button type="submit" :disabled="data.loading" class="rounded-md bg-red-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
+              <button type="submit" :disabled="data.loading" class="rounded-md bg-red-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
                 {{ data.loading ? 'Submitting...' : 'Submit' }}
               </button>
             </div>

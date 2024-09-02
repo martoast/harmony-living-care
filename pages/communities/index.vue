@@ -3,14 +3,6 @@
 </template>
 
 <script setup>
-
-    definePageMeta({
-    middleware: ["auth"]
-    })
-
-    const route = useRoute()
-
-
     useServerSeoMeta({
         title: 'Harmony HomeCare LLC',
         ogTitle: 'Harmony HomeCare LLC',

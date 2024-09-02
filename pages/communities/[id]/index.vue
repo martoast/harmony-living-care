@@ -163,12 +163,6 @@ import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { usePropertiesStore } from '~/store/DataStore'
 import ModalCarousel from '~/components/ModalCarousel.vue'
 
-definePageMeta({
-  middleware: ["auth"]
-})
-
-const { $locally } = useNuxtApp()
-
 const route = useRoute()
 const store = usePropertiesStore()
 

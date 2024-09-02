@@ -8,10 +8,6 @@
 
 import { usePropertiesStore } from '~/store/DataStore'
 
-definePageMeta({
-    middleware: ["auth"]
-})
-
 const route = useRoute()
 const store = usePropertiesStore()
     
@@ -21,11 +17,8 @@ const property = computed(() => ({
   ...store.property
 }))
 
-const user = useCurrentUser()
-
 const options = computed(() => ({
   url: `https://calendly.com/e_steban/harmony-discovery-call?primary_color=ef4444` +
-       `&email=${encodeURIComponent(user.value.email)}` +
        `&a1=${encodeURIComponent(`I'm interested in ${property.value.address}`)}`,
 }))
 </script>
