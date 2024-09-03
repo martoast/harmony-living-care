@@ -54,6 +54,8 @@
           <div class="mt-6 flex space-x-6">
             <img class="h-8" src="/access-icon.svg" alt="access-icon" />
             <img class="h-8" src="/equal-housing-icon.svg" alt="equal-housing-icon" />
+            <img class="h-8" src="/harmony-health-logo.svg" alt="harmony-health-logo-icon" />
+
           </div>
         </div>
       </div>

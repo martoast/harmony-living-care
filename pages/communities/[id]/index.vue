@@ -188,6 +188,9 @@ const property = computed(() => ({
 }))
 
 let  map = {}
+let marker = null;
+
+const hospitalMarkers = ref([])
 
 const sortedHospitals = computed(() => {
   return property.value.nearby_hospitals.slice().sort((a, b) => b.rating - a.rating);
@@ -223,25 +226,95 @@ const handleBackButton = async () => {
 }
 
 const initMap = () => {
-    mapboxgl.accessToken = access_token
+  mapboxgl.accessToken = access_token
 
-    // Adjust zoom based on screen width
-    const screenWidth = window.innerWidth
-    const isMobile = screenWidth <= 768 // Define your mobile breakpoint
+  // Adjust zoom based on screen width
+  const screenWidth = window.innerWidth
+  const isMobile = screenWidth <= 768 // Define your mobile breakpoint
 
-    map_config.zoom = isMobile ? 2 : 3 // Adjust zoom levels
+  map = new mapboxgl.Map({
+    container: "map",
+    style: "mapbox://styles/mapbox/streets-v12",
+    zoom: isMobile ? 13 : 14, // Adjust zoom levels
+    center: [property.value.longitude, property.value.latitude],
+    dragPan: true,
+    antialias: true,
+  })
 
-        map = new mapboxgl.Map({
-            container: "map",
-            style: map_config.style,
-            zoom: map_config.zoom,
-            pitch: map_config.pitch,
-            bearing: map_config.bearing,
-            center: map_config.center,
-            dragPan: true,
-            antialias: true,
-        }) 
-    }
+  map.on('load', () => {
+    addPropertyMarker()
+    addHospitalsMarker()
+  })
+}
+
+const addPropertyMarker = () => {
+  if (marker) {
+    marker.remove()
+  }
+
+  // Create the marker and add it to the map
+  marker = new mapboxgl.Marker({ color: '#FF0000' })
+    .setLngLat([property.value.longitude, property.value.latitude])
+    .setPopup(
+      new mapboxgl.Popup({ offset: 25 })
+        .setHTML(`
+          <div class="p-2">
+            <h3 class="font-bold text-sm mb-1">${property.value.address}</h3>
+            <p class="text-xs">Beds: ${property.value.bedrooms}, Baths: ${property.value.bathrooms}</p>
+          </div>
+        `)
+    )
+    .addTo(map)
+
+  // Show popup on hover
+  marker.getElement().addEventListener('mouseenter', () => marker.togglePopup())
+  marker.getElement().addEventListener('mouseleave', () => marker.togglePopup())
+}
+
+const addHospitalsMarker = () => {
+  // Remove existing hospital markers
+  hospitalMarkers.value.forEach(marker => marker.remove())
+  hospitalMarkers.value = []
+
+  // Add markers for each nearby hospital
+  sortedHospitals.value.slice(0, 5).forEach((hospital) => {
+    const el = document.createElement('div')
+    el.className = 'custom-marker hospital-marker'
+    el.style.backgroundColor = '#0000FF'
+    el.style.width = '15px'
+    el.style.height = '15px'
+    el.style.borderRadius = '50%'
+    el.style.border = '2px solid #FFFFFF'
+
+    const hospitalMarker = new mapboxgl.Marker(el)
+      .setLngLat([hospital.longitude, hospital.latitude])
+      .setPopup(
+        new mapboxgl.Popup({ offset: 20 })
+          .setHTML(`
+            <div class="p-2">
+              <h3 class="font-bold text-sm mb-1">${hospital.name}</h3>
+              <p class="text-xs">Distance: ${hospital.distance} miles</p>
+            </div>
+          `)
+      )
+      .addTo(map)
+
+    // Show popup on hover
+    el.addEventListener('mouseenter', () => hospitalMarker.togglePopup())
+    el.addEventListener('mouseleave', () => hospitalMarker.togglePopup())
+
+    hospitalMarkers.value.push(hospitalMarker)
+  })
+
+  // Fit the map to include all markers
+  const bounds = new mapboxgl.LngLatBounds()
+  bounds.extend([property.value.longitude, property.value.latitude])
+  property.value.nearby_hospitals.forEach(hospital => {
+    bounds.extend([hospital.longitude, hospital.latitude])
+  })
+  map.fitBounds(bounds, { padding: 50 })
+}
+
 
     onMounted(() => {
     initMap();
