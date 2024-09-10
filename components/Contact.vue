@@ -1,5 +1,5 @@
 <template>
-  <div class="relative bg-white">
+  <div id="contact" class="relative bg-white">
     <div class="lg:absolute lg:inset-0 lg:left-1/2">
       <img class="h-64 w-full bg-gray-50 object-cover sm:h-80 lg:absolute lg:h-full" src="/backyard.jpg" alt="" />
     </div>

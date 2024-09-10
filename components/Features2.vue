@@ -1,6 +1,6 @@
 <template>
   <div class="relative overflow-hidden bg-white py-24 sm:py-32">
-    <div ref="rootElement" class="relative mx-auto max-w-7xl px-6lg:px-8">
+    <div ref="rootElement" class="relative mx-auto max-w-7xl px-6 lg:px-8">
       <h2 class="text-center text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">Compassionate Care Tailored to You</h2>
       <p class="mx-auto mt-4 max-w-3xl text-center text-xl text-gray-500">
         From personalized care plans to specialized memory care, our compassionate team is dedicated to providing exceptional support in a warm and nurturing environment designed for comfort and well-being.
@@ -95,7 +95,7 @@ const services = [
     icon: HomeIcon,
     title: 'Assisted Living',
     description: 'Discover a supportive environment where personalized care plans and enriching activities promote independence and well-being for our residents.',
-    imageSrc: 'https://www.harmonylivingcare.com/wp-content/themes/harmonyhomecarera435/images/slider/3.jpg',
+    imageSrc: '/tea.jpeg',
     imageAlt: 'Assisted living community',
     testimonial: {
       quote: 'Moving to assisted living was a big step, but the staff here made the transition smooth and enjoyable. I feel like I\'m part of a caring community.',

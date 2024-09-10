@@ -65,9 +65,8 @@
               </button>
               <div v-show="dropdowns.communities" class="absolute left-0 top-full mt-1 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50" role="menu" aria-orientation="vertical" aria-labelledby="communities-menu">
                 <div class="py-1" role="none">
-                  <NuxtLink to="/communities/?address=san-antonio" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">San Antonio</NuxtLink>
-                  <NuxtLink to="/communities/?address=vista" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Vista</NuxtLink>
-                  <NuxtLink to="/communities/?address=san-diego" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">San Diego</NuxtLink>
+                  <NuxtLink to="/communities/?address=california" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">California</NuxtLink>
+                  <NuxtLink to="/communities/?address=texas" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Texas</NuxtLink>
                 </div>
               </div>
             </div>

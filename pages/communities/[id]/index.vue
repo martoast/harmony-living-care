@@ -1,150 +1,182 @@
 <template>
-  <div class="bg-gray-50 min-h-screen">
-    <div class="container mx-auto">
-      <div class="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        
-        <div class="mb-4">
-          <button @click="handleBackButton" type="button" class="rounded-full bg-red-500 p-2 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-            </svg>
-          </button>
-        </div>
+  <div class="bg-white">
+    <div class="pt-6">
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb">
+        <ol role="list" class="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          <li>
+            <div class="flex items-center">
+              <NuxtLink class="mr-2 text-sm font-medium text-gray-900" to="/communities">
+                Communities
+              </NuxtLink>
 
-        <div class="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
-          <!-- Image gallery -->
-          <TabGroup as="div" class="flex flex-col-reverse">
-            <div class="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
-              <TabList class="grid grid-cols-4 gap-6 mb-8">
-                <Tab
-                  v-for="(image, index) in property.images"
-                  :key="index"
-                  class="relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-gray-200 text-sm font-medium uppercase text-gray-600 hover:bg-gray-300 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-offset-4"
-                  v-slot="{ selected }"
-                >
-                  <span class="sr-only">Image {{ index + 1 }}</span>
-                  <span class="absolute inset-0 overflow-hidden rounded-md">
-                    <img
-                      :src="image"
-                      alt=""
-                      class="h-full w-full object-cover object-center"
-                    />
-                  </span>
-                  <span
-                    :class="[
-                      selected ? 'ring-red-500' : 'ring-transparent',
-                      'pointer-events-none absolute inset-0 rounded-md ring-2 ring-offset-2'
-                    ]"
-                    aria-hidden="true"
-                  />
-                </Tab>
-              </TabList>
+              <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
+                <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+              </svg>
             </div>
+          </li>
+          <li class="text-sm">
+            <span aria-current="page" class="font-medium text-gray-500">{{ property.address }}</span>
+          </li>
+        </ol>
+      </nav>
 
-            <TabPanels class="aspect-h-1 aspect-w-1 w-full">
-              <TabPanel
+      <!-- Updated Image gallery -->
+      <!-- <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:max-w-7xl lg:px-8">
+        <TabGroup as="div" class="flex flex-col-reverse">
+          <div class="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
+            <TabList v-if="property.images.length > 1" class="grid grid-cols-4 gap-6 mb-8">
+              <Tab
                 v-for="(image, index) in property.images"
                 :key="index"
-                @click="openModal(index)"
+                class="relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-gray-200 text-sm font-medium uppercase text-gray-600 hover:bg-gray-300 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-offset-4"
+                v-slot="{ selected }"
               >
-                <img
-                  :src="image"
-                  :alt="`Image ${index + 1}`"
-                  class="h-full w-full object-cover object-center sm:rounded-lg cursor-pointer"
+                <span class="sr-only">Image {{ index + 1 }}</span>
+                <span class="absolute inset-0 overflow-hidden rounded-md">
+                  <img
+                    :src="image"
+                    alt=""
+                    class="h-full w-full object-cover object-center"
+                  />
+                </span>
+                <span
+                  :class="[
+                    selected ? 'ring-red-500' : 'ring-transparent',
+                    'pointer-events-none absolute inset-0 rounded-md ring-2 ring-offset-2'
+                  ]"
+                  aria-hidden="true"
                 />
-              </TabPanel>
-            </TabPanels>
-          </TabGroup>
+              </Tab>
+            </TabList>
+          </div>
 
-          <!-- Property info -->
-          <div class="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
-            <h1 class="text-3xl font-bold tracking-tight text-gray-900">
-              {{ property.address }}
-            </h1>
+          <TabPanels class="h-[400px] w-full overflow-hidden rounded-lg">
+            <TabPanel
+              v-for="(image, index) in property.images"
+              :key="index"
+              class="h-full w-full"
+              @click="openModal(index)"
+            >
+              <img
+                :src="image"
+                :alt="`Image ${index + 1}`"
+                class="h-full w-full object-cover object-center cursor-pointer"
+              />
+            </TabPanel>
+          </TabPanels>
+        </TabGroup>
+      </div> -->
 
-            <div class="mt-3">
-              <h2 class="sr-only">Property information</h2>
-              
-              <p class="text-lg text-gray-900">
-                {{ property.bedrooms }} beds | {{ property.bathrooms }} baths | {{ property.living_area }} sq ft
-              </p>
-              
-
-              <div class="mt-4">
-                share on:
-              <ul role="list" class="mt-2 flex items-center space-x-6">
-                <li>
-                  <a :href="`https://www.facebook.com/sharer/sharer.php?u=https://harmony-livingcare.web.app/communities/${property.ID}/&t=${encodeURIComponent('Check out this property!')}`" class="flex h-6 w-6 items-center justify-center text-gray-400 hover:text-gray-500" target="_blank">
-                    <span class="sr-only">Share on Facebook</span>
-                    <svg class="h-5 w-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M20 10c0-5.523-4.477-10-10-10S0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V10h2.54V7.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V10h2.773l-.443 2.89h-2.33v6.988C16.343 19.128 20 14.991 20 10z" clip-rule="evenodd" />
-                    </svg>
-                  </a>
-                </li>
-               
-              </ul>
-              </div>
-
-              <div class="mt-6 flex space-x-4">
-                <NuxtLink :to="`/communities/${property.ID}/schedule`">
-                  <button type="button" class="flex items-center justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
-                    <PlusIcon class="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
-                    Schedule a discovery call
-                  </button>
-                </NuxtLink>
-                
-              </div>
-
-  
-              
+      <div @click="openModal(0)" class="mx-auto mt-6 max-w-2xl sm:px-6 lg:max-w-7xl lg:px-8 cursor-pointer">
+        <div v-if="property.images.length === 1" class="overflow-hidden rounded-lg">
+          <img :src="property.images[0]" :alt="property.address" class="w-full h-[400px] object-cover object-center" />
+        </div>
+        <div v-else class="lg:grid lg:grid-cols-3 lg:gap-x-8">
+          <div class="aspect-h-4 aspect-w-3 overflow-hidden rounded-lg lg:block">
+            <img :src="property.images[0]" :alt="property.address" class="h-full w-full object-cover object-center" />
+          </div>
+          <div class="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
+            <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+              <img :src="property.images[1]" :alt="property.address" class="h-full w-full object-cover object-center" />
             </div>
-
-            <div class="mt-8">
-              <h3 class="text-lg font-medium text-gray-900">Description</h3>
-              <div class="mt-4 text-base text-gray-500">
-                <p>{{ property.description }}</p>
-              </div>
+            <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+              <img :src="property.images[2]" :alt="property.address" class="h-full w-full object-cover object-center" />
             </div>
+          </div>
+          <div class="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+            <img :src="property.images[3]" :alt="property.address" class="h-full w-full object-cover object-center" />
+          </div>
+        </div>
+      </div>
 
-            <!-- <div class="mt-8">
-              <h3 class="text-lg font-medium text-gray-900">Features & Amenities</h3>
-              <dl class="mt-4 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
-                <div>
-                  <dt class="text-sm font-medium text-gray-500">Property Type</dt>
-                  <dd class="mt-1 text-sm text-gray-900">{{ property.property_type }}</dd>
-                </div>
-                
-              </dl>
-            </div> -->
+      <!-- Property info -->
+      <div class="mx-auto max-w-2xl px-4 pb-12 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
+        <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+          <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{{ property.address }}</h1>
+        </div>
 
-            <div v-if="property.nearby_hospitals.length" class="my-8">
-              <h3 class="text-lg font-medium text-gray-900">Nearby Medical Facilities</h3>
-              <p class="mt-2 text-sm text-gray-500">
-                Access to quality healthcare is crucial for assisted living. Here are some nearby medical facilities:
-              </p>
-              <ul class="mt-4 space-y-4">
-                <li v-for="hospital in sortedHospitals.slice(0, 5)" :key="hospital.name" class="flex items-start">
-                  <svg class="mt-1 h-5 w-5 flex-shrink-0 text-green-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+        <!-- Property details -->
+        <div class="mt-4 lg:row-span-3 lg:mt-0">
+          <h2 class="sr-only">Property information</h2>
+          <p class="text-3xl tracking-tight text-gray-900">Starting at ${{ property.assisted_living_rate }}/ month</p>
+
+          <!-- Property features -->
+          <div class="mt-6">
+            <h3 class="sr-only">Features</h3>
+            <div class="space-y-6">
+              <p class="text-base text-gray-900">{{ property.bedrooms }} beds | {{ property.bathrooms }} baths | {{ property.living_area }} sq ft</p>
+            </div>
+          </div>
+
+          <div class="mt-10">
+            <h3 class="text-sm font-medium text-gray-900">Share on</h3>
+            <ul role="list" class="mt-4 flex items-center space-x-6">
+              <li>
+                <a :href="`https://www.facebook.com/sharer/sharer.php?u=https://harmony-livingcare.web.app/communities/${property.ID}/&t=${encodeURIComponent('Check out this property!')}`" class="flex h-6 w-6 items-center justify-center text-gray-400 hover:text-gray-500" target="_blank">
+                  <span class="sr-only">Share on Facebook</span>
+                  <svg class="h-5 w-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M20 10c0-5.523-4.477-10-10-10S0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V10h2.54V7.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V10h2.773l-.443 2.89h-2.33v6.988C16.343 19.128 20 14.991 20 10z" clip-rule="evenodd" />
                   </svg>
-                  <span class="ml-3 text-sm text-gray-500">
-                    <strong class="font-medium text-gray-900">{{ hospital.name }}</strong>
-                    <br>Distance: {{ hospital.distance }} miles
+                </a>
+              </li>
+              <!-- Add more social share buttons here -->
+            </ul>
+          </div>
+
+          <NuxtLink :to="`/communities/${property.ID}/schedule`" class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+            Schedule a discovery call
+          </NuxtLink>
+        </div>
+
+        <div class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
+          <!-- Description and details -->
+          <div>
+            <h3 class="sr-only">Description</h3>
+            <div class="space-y-6">
+              <p class="text-base text-gray-900">{{ property.description }}</p>
+            </div>
+          </div>
+
+          <div v-if="property.nearby_hospitals.length" class="mt-10">
+            <h3 class="text-sm font-medium text-gray-900">Nearby Medical Facilities</h3>
+            <div class="mt-4">
+              <ul role="list" class="list-disc space-y-2 pl-4 text-sm">
+                <li v-for="hospital in sortedHospitals.slice(0, 5)" :key="hospital.name" class="text-gray-400">
+                  <span class="text-gray-600">
+                    <strong>{{ hospital.name }}</strong> - Distance: {{ hospital.distance }} miles
                   </span>
                 </li>
               </ul>
             </div>
+          </div>
 
-
-            <div class="w-full h-[40vh] mt-8 lg:mt-0">
-              <div id="map" class="h-full border border-gray-300 shadow-sm"></div>
+          <div v-if="property.amenities.length" class="mt-10">
+            <h3 class="text-sm font-medium text-gray-900">Amenities</h3>
+            <div class="mt-4">
+              <ul role="list" class="list-disc space-y-2 pl-4 text-sm">
+                <li v-for="(amenity, index) in property.amenities" :key="index" class="text-gray-400">
+                  <span class="text-gray-600">
+                    <strong>{{ amenity }}</strong>
+                  </span>
+                </li>
+              </ul>
             </div>
-
-            
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Map section -->
+    <div class="mx-auto max-w-2xl px-4 pb-16 sm:px-6 lg:max-w-7xl lg:px-8">
+      <h2 class="text-lg font-medium text-gray-900">Location</h2>
+      <div class="w-full h-[50vh] mt-8 lg:mt-0">
+        <div id="map" class="h-full border border-gray-300 shadow-sm rounded-md"></div>
+      </div>
+    </div>
+
+    <FindContact/>
+
     <ModalCarousel
       :showModal="isModalOpen"
       :images="property.images"
@@ -155,24 +187,21 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useRoute } from 'vue-router'
-import { useAsyncData } from '#app'
-import { PlusIcon } from '@heroicons/vue/20/solid'
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { usePropertiesStore } from '~/store/DataStore'
-import ModalCarousel from '~/components/ModalCarousel.vue'
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 
 const route = useRoute()
 const store = usePropertiesStore()
-
 const nuxtApp = useNuxtApp()
-
 const config = useRuntimeConfig()
-
 const mapboxgl = nuxtApp.mapboxgl
-
 const access_token = config.public.MAPBOX_API_TOKEN
+
+
+const isModalOpen = ref(false)
+const selectedImageIndex = ref(0)
+
+
 
 
 await useAsyncData('property', () => store.find(route.params.id))
@@ -180,65 +209,27 @@ await useAsyncData('property', () => store.find(route.params.id))
 const property = computed(() => ({
   ...store.property,
   nearby_hospitals: store.property.nearby_hospitals ? JSON.parse(store.property.nearby_hospitals) : [],
-  nearby_schools: store.property.nearby_schools ? JSON.parse(store.property.nearby_schools) : [],
-  nearby_homes: store.property.nearby_homes ? JSON.parse(store.property.nearby_homes) : [],
   images: store.property.images.length ? JSON.parse(store.property.images) : [],
-  tax_history: store.property.tax_history ? JSON.parse(store.property.tax_history) : [],
-  price_history: store.property.price_history ? JSON.parse(store.property.price_history) : [],
+  amenities: store.property.amenities ? JSON.parse(store.property.amenities) : [],
 }))
 
-let  map = {}
-let marker = null;
-
-const hospitalMarkers = ref([])
-
 const sortedHospitals = computed(() => {
-  return property.value.nearby_hospitals.slice().sort((a, b) => b.rating - a.rating);
+  return property.value.nearby_hospitals.slice().sort((a, b) => b.rating - a.rating)
 })
 
-
-
-const map_config = {
-            style: "mapbox://styles/mapbox/streets-v12",
-            zoom: 3,
-            pitch: 0,
-            bearing: 0,
-            center: [-100.486052, 37.830348],
-        }
-        
-const isModalOpen = ref(false)
-const selectedImageIndex = ref(0)
-
-function openModal(index) {
-  selectedImageIndex.value = index
-  isModalOpen.value = true
-}
-
-function formatCurrency(value) {
-  if (typeof value !== 'number') {
-    return value;
-  }
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
-}
-
-const handleBackButton = async () => {
-  await navigateTo('/communities/')
-}
+let map = {}
+let marker = null
+const hospitalMarkers = ref([])
 
 const initMap = () => {
   mapboxgl.accessToken = access_token
-
-  // Adjust zoom based on screen width
-  const screenWidth = window.innerWidth
-  const isMobile = screenWidth <= 768 // Define your mobile breakpoint
-
   map = new mapboxgl.Map({
     container: "map",
     style: "mapbox://styles/mapbox/streets-v12",
-    zoom: isMobile ? 13 : 14, // Adjust zoom levels
     center: [property.value.longitude, property.value.latitude],
-    dragPan: true,
-    antialias: true,
+    zoom: 14,
+    touchZoomRotate: {around: 'center'},
+    scrollZoom: {around: 'center'},
   })
 
   map.on('load', () => {
@@ -248,11 +239,7 @@ const initMap = () => {
 }
 
 const addPropertyMarker = () => {
-  if (marker) {
-    marker.remove()
-  }
-
-  // Create the marker and add it to the map
+  if (marker) marker.remove()
   marker = new mapboxgl.Marker({ color: '#FF0000' })
     .setLngLat([property.value.longitude, property.value.latitude])
     .setPopup(
@@ -265,18 +252,12 @@ const addPropertyMarker = () => {
         `)
     )
     .addTo(map)
-
-  // Show popup on hover
-  marker.getElement().addEventListener('mouseenter', () => marker.togglePopup())
-  marker.getElement().addEventListener('mouseleave', () => marker.togglePopup())
 }
 
 const addHospitalsMarker = () => {
-  // Remove existing hospital markers
   hospitalMarkers.value.forEach(marker => marker.remove())
   hospitalMarkers.value = []
 
-  // Add markers for each nearby hospital
   sortedHospitals.value.slice(0, 5).forEach((hospital) => {
     const el = document.createElement('div')
     el.className = 'custom-marker hospital-marker'
@@ -299,14 +280,9 @@ const addHospitalsMarker = () => {
       )
       .addTo(map)
 
-    // Show popup on hover
-    el.addEventListener('mouseenter', () => hospitalMarker.togglePopup())
-    el.addEventListener('mouseleave', () => hospitalMarker.togglePopup())
-
     hospitalMarkers.value.push(hospitalMarker)
   })
 
-  // Fit the map to include all markers
   const bounds = new mapboxgl.LngLatBounds()
   bounds.extend([property.value.longitude, property.value.latitude])
   property.value.nearby_hospitals.forEach(hospital => {
@@ -315,9 +291,12 @@ const addHospitalsMarker = () => {
   map.fitBounds(bounds, { padding: 50 })
 }
 
+function openModal(index) {
+  selectedImageIndex.value = index
+  isModalOpen.value = true
+}
 
-    onMounted(() => {
-    initMap();
-        
-    });
+onMounted(() => {
+  initMap()
+})
 </script>

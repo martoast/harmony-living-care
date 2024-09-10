@@ -25,7 +25,7 @@
 
       <!-- Image section -->
       <div class="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
-        <img src="https://www.harmonylivingcare.com/wp-content/themes/harmonyhomecarera435/images/slider/nh-banner.jpg" alt="Seniors enjoying activities in assisted living community" class="aspect-[5/2] w-full object-cover xl:rounded-3xl" />
+        <img src="/banner.jpg" alt="Seniors enjoying activities in assisted living community" class="aspect-[5/2] w-full object-cover xl:rounded-3xl" />
       </div>
 </template>
 

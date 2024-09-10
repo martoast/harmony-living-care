@@ -1,33 +1,37 @@
 <template>
   <div class="bg-gray-50 min-h-screen">
     <div class="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-      <div class="flex flex-col lg:flex-row items-center lg:items-start mb-6">
-        <div class="lg:w-1/2 px-6">
+      <div class="flex flex-col items-center mb-6">
+        
+
+        <div class="w-full h-[50vh] mt-8 lg:mt-0">
+          <div id="map" class="h-full border border-gray-300 shadow-sm rounded-lg"></div>
+        </div>
+      </div>
+
+      <WhyChoose/>
+
+      <div class="pb-6">
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Find the perfect home for you</h2>
           <p class="mt-6 text-lg leading-8 text-gray-600">Discover our thoughtfully designed assisted living spaces, where your unique needs are our priority. With homes across California, Texas, and Florida, you're sure to find the perfect location that feels just right for you or your loved one.</p>
           
-          <!-- New dropdown for city selection -->
-          <div class="mt-6">
-            <select
-              id="city"
-              name="city"
-              v-model="selectedCity"
-              @change="handleCityChange"
-              class="block w-full rounded-md border-gray-300 px-4 py-3 focus:border-red-500 focus:ring-red-500 sm:text-sm [&_*]:text-black"
-            >
-              <option value="">Select a city</option>
-              <option value="san-diego">San Diego</option>
-              <option value="los-angeles">Los Angeles</option>
-              <option value="vista">Vista</option>
-              <option value="san-antonio">San Antonio</option>
-            </select>
-          </div>
+          
         </div>
 
-        <div class="w-full lg:w-1/2 h-[40vh] mt-8 lg:mt-0 lg:pl-6 hidden sm:block">
-          <div id="map" class="h-full border border-gray-300 shadow-sm"></div>
-        </div>
-      </div>
+      <!-- New dropdown for city selection -->
+      <div class="mb-6 max-w-lg">
+            <select
+              id="state"
+              name="state"
+              v-model="selectedState"
+              @change="handlStateChange"
+              class="block w-full rounded-md border-gray-300 px-4 py-3 focus:border-red-500 focus:ring-red-500 sm:text-sm [&_*]:text-black"
+            >
+              <option value="">Select a state</option>
+              <option value="california">California</option>
+              <option value="texas">Texas</option>
+            </select>
+          </div>
 
       <div v-if="properties.length > 0" class="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8">
       <div
@@ -136,12 +140,12 @@ const store = usePropertiesStore();
 const config = useRuntimeConfig();
 
 const currentPage = ref(1);
-const selectedCity = ref(route.query.address ?? '');
+const selectedState = ref(route.query.address ?? '');
 const googleMapsApiKey = config.public.GOOGLE_MAPS_API_KEY;
 
 const { data, pending, error, refresh } = await useAsyncData(
   'assistedLivingProperties',
-  () => store.get(currentPage.value, props.itemsPerPage, null, true, selectedCity.value)
+  () => store.get(currentPage.value, props.itemsPerPage, null, true, selectedState.value)
 );
 
 const totalPages = computed(() => Math.ceil(store.total / props.itemsPerPage));
@@ -151,9 +155,9 @@ const properties = computed(() => store.properties.map(property => ({
   images: property.images.length ? JSON.parse(property.images) : []
 })));
 
-const handleCityChange = () => {
+const handlStateChange = () => {
   currentPage.value = 1;
-  router.push({ query: { address: selectedCity.value } });
+  router.push({ query: { address: selectedState.value } });
   refresh();
 };
 
@@ -173,7 +177,7 @@ const prevPage = () => {
 };
 
 const resetFilters = () => {
-  selectedCity.value = '';
+  selectedState.value = '';
   currentPage.value = 1;
   router.push({ query: {} });
   refresh();

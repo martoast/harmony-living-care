@@ -1,6 +1,7 @@
 <template>
     <div>
       <Hero/>
+      <FindContact/>
       <Stats id="about"/>
       <Mission/>
       
@@ -8,7 +9,7 @@
       <Communities id="communities" :itemsPerPage="3"/>
       <CTA id="cta"/>
       <FAQ id="faq"/>
-      <Contact id="contact"/>
+      <!-- <Contact id="contact"/> -->
     </div>
 </template>
 
@@ -31,6 +32,7 @@ import Communities from '~/components/Communities.vue';
                 pitch: 0,
                 bearing: 0,
                 center: [-100.486052, 37.830348],
+                dragPan: false,
             }
 
 
@@ -50,9 +52,11 @@ import Communities from '~/components/Communities.vue';
             pitch: map_config.pitch,
             bearing: map_config.bearing,
             center: map_config.center,
-            dragPan: true,
+            dragPan: map_config.dragPan,
             antialias: true,
         })
+
+        map.scrollZoom.disable();
 
         const statesWithBusiness = ["06", "48", "12", "01"] // Example state IDs for California, Texas, Florida
 

@@ -95,6 +95,7 @@ const navigation = {
     { name: 'Invest with us', href: '/invest' },
   ],
   legal: [
+    { name: 'HIPAA', href: '/hipaa' },
     { name: 'Privacy policy', href: '/privacy-policy' },
     { name: 'Terms of service', href: '/terms-of-service' },
   ],
