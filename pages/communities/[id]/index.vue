@@ -21,53 +21,6 @@
         </ol>
       </nav>
 
-      <!-- Updated Image gallery -->
-      <!-- <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:max-w-7xl lg:px-8">
-        <TabGroup as="div" class="flex flex-col-reverse">
-          <div class="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
-            <TabList v-if="property.images.length > 1" class="grid grid-cols-4 gap-6 mb-8">
-              <Tab
-                v-for="(image, index) in property.images"
-                :key="index"
-                class="relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-gray-200 text-sm font-medium uppercase text-gray-600 hover:bg-gray-300 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-offset-4"
-                v-slot="{ selected }"
-              >
-                <span class="sr-only">Image {{ index + 1 }}</span>
-                <span class="absolute inset-0 overflow-hidden rounded-md">
-                  <img
-                    :src="image"
-                    alt=""
-                    class="h-full w-full object-cover object-center"
-                  />
-                </span>
-                <span
-                  :class="[
-                    selected ? 'ring-red-500' : 'ring-transparent',
-                    'pointer-events-none absolute inset-0 rounded-md ring-2 ring-offset-2'
-                  ]"
-                  aria-hidden="true"
-                />
-              </Tab>
-            </TabList>
-          </div>
-
-          <TabPanels class="h-[400px] w-full overflow-hidden rounded-lg">
-            <TabPanel
-              v-for="(image, index) in property.images"
-              :key="index"
-              class="h-full w-full"
-              @click="openModal(index)"
-            >
-              <img
-                :src="image"
-                :alt="`Image ${index + 1}`"
-                class="h-full w-full object-cover object-center cursor-pointer"
-              />
-            </TabPanel>
-          </TabPanels>
-        </TabGroup>
-      </div> -->
-
       <div @click="openModal(0)" class="mx-auto mt-6 max-w-2xl sm:px-6 lg:max-w-7xl lg:px-8 cursor-pointer">
         <div v-if="property.images.length === 1" class="overflow-hidden rounded-lg">
           <img :src="property.images[0]" :alt="property.address" class="w-full h-[400px] object-cover object-center" />
@@ -142,12 +95,19 @@
             <h3 class="text-sm font-medium text-gray-900">Nearby Medical Facilities</h3>
             <div class="mt-4">
               <ul role="list" class="list-disc space-y-2 pl-4 text-sm">
-                <li v-for="hospital in sortedHospitals.slice(0, 5)" :key="hospital.name" class="text-gray-400">
+                <li v-for="hospital in displayedHospitals" :key="hospital.name" class="text-gray-400">
                   <span class="text-gray-600">
                     <strong>{{ hospital.name }}</strong> - Distance: {{ hospital.distance }} miles
                   </span>
                 </li>
               </ul>
+              <button 
+                v-if="hasMoreHospitals" 
+                @click="showMoreHospitals" 
+                class="mt-4 text-sm font-medium text-red-600 hover:text-red-500"
+              >
+                See More
+              </button>
             </div>
           </div>
 
@@ -213,6 +173,7 @@ const property = computed(() => ({
   amenities: store.property.amenities ? JSON.parse(store.property.amenities) : [],
 }))
 
+
 const sortedHospitals = computed(() => {
   return property.value.nearby_hospitals.slice().sort((a, b) => b.rating - a.rating)
 })
@@ -240,7 +201,7 @@ const initMap = () => {
 
 const addPropertyMarker = () => {
   if (marker) marker.remove()
-  marker = new mapboxgl.Marker({ color: '#FF0000' })
+  marker = new mapboxgl.Marker({ color: '#bb2b2b' })
     .setLngLat([property.value.longitude, property.value.latitude])
     .setPopup(
       new mapboxgl.Popup({ offset: 25 })
@@ -258,14 +219,18 @@ const addHospitalsMarker = () => {
   hospitalMarkers.value.forEach(marker => marker.remove())
   hospitalMarkers.value = []
 
-  sortedHospitals.value.slice(0, 5).forEach((hospital) => {
+  property.value.nearby_hospitals.forEach((hospital) => {
     const el = document.createElement('div')
     el.className = 'custom-marker hospital-marker'
-    el.style.backgroundColor = '#0000FF'
-    el.style.width = '15px'
-    el.style.height = '15px'
+    el.style.backgroundColor = '#bb2b2b'
+    el.style.width = '20px'
+    el.style.height = '20px'
     el.style.borderRadius = '50%'
     el.style.border = '2px solid #FFFFFF'
+
+    // Create a comprehensive query string for Google Maps
+    const queryString = `${hospital.name}, ${hospital.address}, ${hospital.latitude}, ${hospital.longitude}`.trim()
+    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(queryString)}`
 
     const hospitalMarker = new mapboxgl.Marker(el)
       .setLngLat([hospital.longitude, hospital.latitude])
@@ -274,7 +239,9 @@ const addHospitalsMarker = () => {
           .setHTML(`
             <div class="p-2">
               <h3 class="font-bold text-sm mb-1">${hospital.name}</h3>
+              <p class="text-xs">${hospital.address}</p>
               <p class="text-xs">Distance: ${hospital.distance} miles</p>
+              <a href="${googleMapsUrl}" target="_blank" rel="noopener noreferrer" class="text-xs text-blue-600 hover:text-blue-800 mt-1 block">View on Google Maps</a>
             </div>
           `)
       )
@@ -294,6 +261,26 @@ const addHospitalsMarker = () => {
 function openModal(index) {
   selectedImageIndex.value = index
   isModalOpen.value = true
+}
+
+// New code for "See More" functionality
+const initialHospitalCount = 5
+const hospitalIncrement = 5
+const displayedHospitalCount = ref(initialHospitalCount)
+
+const displayedHospitals = computed(() => {
+  return sortedHospitals.value.slice(0, displayedHospitalCount.value)
+})
+
+const hasMoreHospitals = computed(() => {
+  return displayedHospitalCount.value < sortedHospitals.value.length
+})
+
+const showMoreHospitals = () => {
+  displayedHospitalCount.value = Math.min(
+    displayedHospitalCount.value + hospitalIncrement,
+    sortedHospitals.value.length
+  )
 }
 
 onMounted(() => {
