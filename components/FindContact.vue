@@ -23,6 +23,24 @@
               </div>
 
               <div class="sm:col-span-3">
+                <label for="city" class="block text-sm font-medium text-gray-300">City</label>
+                <input v-model="form.city" required type="text" name="city" id="city" autocomplete="address-level2" class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 py-1.5 text-white shadow-sm focus:border-red-500 focus:ring-white sm:text-sm" />
+              </div>
+
+              <div class="sm:col-span-3">
+                <label for="state" class="block text-sm font-medium text-gray-300">State</label>
+                <select v-model="form.state" required id="state" name="state" autocomplete="address-level1" class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 py-1.5 text-white shadow-sm focus:border-red-500 focus:ring-white sm:text-sm">
+                  <option value="">Select a state</option>
+                  <option v-for="state in states" :key="state" :value="state">{{ state }}</option>
+                </select>
+              </div>
+
+              <div class="sm:col-span-3">
+                <label for="zipCode" class="block text-sm font-medium text-gray-300">Zip Code</label>
+                <input v-model="form.zipCode" required type="text" name="zipCode" id="zipCode" autocomplete="postal-code" class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 py-1.5 text-white shadow-sm focus:border-red-500 focus:ring-white sm:text-sm" />
+              </div>
+
+              <div class="sm:col-span-3">
                 <label class="block text-sm font-medium text-gray-300 mb-2">Services Needed</label>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div v-for="service in services" :key="service.value" class="flex items-center">
@@ -91,16 +109,26 @@ const services = ref([
   { value: 'skilled-nursing', label: 'Skilled Nursing' }
 ])
 
+const states = [
+  'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia',
+  'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland',
+  'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey',
+  'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina',
+  'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+]
+
 const form = reactive({
   name: '',
   phone: '',
   email: '',
-  services: [], // Array to handle multiple selections
+  city: '',
+  state: '',
+  zipCode: '',
+  services: [],
   timeframe: '',
   budget: '',
   notes: ''
 })
-
 
 const submitForm = async () => {
   const payload = {
