@@ -6,7 +6,7 @@
         <ol role="list" class="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
           <li>
             <div class="flex items-center">
-              <NuxtLink class="mr-2 text-sm font-medium text-gray-900" to="/communities">
+              <NuxtLink class="mr-2 text-sm font-medium text-red-400 underline" to="/communities">
                 Communities
               </NuxtLink>
 
@@ -21,24 +21,27 @@
         </ol>
       </nav>
 
-      <div @click="openModal(0)" class="mx-auto mt-6 max-w-2xl sm:px-6 lg:max-w-7xl lg:px-8 cursor-pointer">
-        <div v-if="property.images.length === 1" class="overflow-hidden rounded-lg">
+      <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:max-w-7xl lg:px-8 cursor-pointer">
+        <div @click="openModal(0)" v-if="property.images.length === 1" class="overflow-hidden rounded-lg">
           <img :src="property.images[0]" :alt="property.address" class="w-full h-[400px] object-cover object-center" />
         </div>
         <div v-else class="lg:grid lg:grid-cols-3 lg:gap-x-8">
-          <div class="aspect-h-4 aspect-w-3 overflow-hidden rounded-lg lg:block">
+          <div @click="openModal(0)" class="aspect-h-4 aspect-w-3 overflow-hidden rounded-lg lg:block">
             <img :src="property.images[0]" :alt="property.address" class="h-full w-full object-cover object-center" />
           </div>
           <div class="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-            <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+            <div @click="openModal(1)" class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
               <img :src="property.images[1]" :alt="property.address" class="h-full w-full object-cover object-center" />
             </div>
-            <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+            <div @click="openModal(2)" class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
               <img :src="property.images[2]" :alt="property.address" class="h-full w-full object-cover object-center" />
             </div>
           </div>
-          <div class="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+          <div @click="openModal(3)" class="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg relative">
             <img :src="property.images[3]" :alt="property.address" class="h-full w-full object-cover object-center" />
+            <div class="absolute inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center">
+              <span class="text-white text-xl font-semibold">Click to view</span>
+            </div>
           </div>
         </div>
       </div>
@@ -80,6 +83,10 @@
           <NuxtLink :to="`/communities/${property.ID}/schedule`" class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
             Schedule a discovery call
           </NuxtLink>
+
+          <NuxtLink :to="`/communities/${property.ID}/apply`" class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-blue-500 px-8 py-3 text-base font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+            Apply now
+          </NuxtLink>
         </div>
 
         <div class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
@@ -91,38 +98,43 @@
             </div>
           </div>
 
-          <div v-if="property.nearby_hospitals.length" class="mt-10">
-            <h3 class="text-sm font-medium text-gray-900">Nearby Medical Facilities</h3>
-            <div class="mt-4">
-              <ul role="list" class="list-disc space-y-2 pl-4 text-sm">
-                <li v-for="hospital in displayedHospitals" :key="hospital.name" class="text-gray-400">
-                  <span class="text-gray-600">
-                    <strong>{{ hospital.name }}</strong> - Distance: {{ hospital.distance }} miles
-                  </span>
-                </li>
-              </ul>
-              <button 
-                v-if="hasMoreHospitals" 
-                @click="showMoreHospitals" 
-                class="mt-4 text-sm font-medium text-red-600 hover:text-red-500"
-              >
-                See More
-              </button>
+          <div v-if="property.amenities.length" class="mt-10">
+            <h3 class="text-xl font-semibold text-gray-900 mb-6">Amenities</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div v-for="(amenity, index) in property.amenities" :key="index" class="flex items-start p-4 bg-white rounded-lg shadow-sm border border-gray-200">
+                <component :is="getAmenityIcon(amenity)" class="w-6 h-6 text-red-500 mr-4 flex-shrink-0 mt-1" />
+                <span class="text-sm font-medium text-gray-700">{{ amenity }}</span>
+              </div>
             </div>
           </div>
 
-          <div v-if="property.amenities.length" class="mt-10">
-            <h3 class="text-sm font-medium text-gray-900">Amenities</h3>
-            <div class="mt-4">
-              <ul role="list" class="list-disc space-y-2 pl-4 text-sm">
-                <li v-for="(amenity, index) in property.amenities" :key="index" class="text-gray-400">
-                  <span class="text-gray-600">
-                    <strong>{{ amenity }}</strong>
-                  </span>
-                </li>
-              </ul>
-            </div>
+          <div v-if="property.nearby_hospitals.length" class="mt-10">
+    <h3 class="text-xl font-semibold text-gray-900 mb-6">Nearby Medical Facilities</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div v-for="hospital in displayedHospitals" :key="hospital.name" class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+        <div class="flex items-start">
+          <BuildingOffice2Icon class="w-6 h-6 text-red-500 mr-3 flex-shrink-0 mt-1" />
+          <div>
+            <h4 class="text-sm font-medium text-gray-900">{{ hospital.name }}</h4>
+            <p class="text-sm text-gray-500 mt-1">{{ hospital.distance }} miles away</p>
+            
+            <a :href="getGoogleMapsUrl(hospital)" target="_blank" rel="noopener noreferrer" class="text-sm text-blue-600 hover:text-blue-800 mt-2 inline-block">
+              View on Google Maps
+            </a>
           </div>
+        </div>
+      </div>
+    </div>
+    <button 
+      v-if="hasMoreHospitals" 
+      @click="showMoreHospitals" 
+      class="mt-6 text-sm font-medium text-red-600 hover:text-red-500 focus:outline-none focus:underline"
+    >
+      See More Hospitals
+    </button>
+  </div>
+
+          
         </div>
       </div>
     </div>
@@ -137,6 +149,8 @@
 
     <FindContact/>
 
+    <FAQ/>
+
     <ModalCarousel
       :showModal="isModalOpen"
       :images="property.images"
@@ -149,6 +163,32 @@
 <script setup>
 import { usePropertiesStore } from '~/store/DataStore'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
+
+
+import { 
+  HeartIcon,
+  HomeIcon, 
+  UsersIcon,
+  SparklesIcon,
+  ClockIcon,
+  TruckIcon,
+  SunIcon,
+  CheckIcon
+} from '@heroicons/vue/20/solid'
+
+const getAmenityIcon = (amenity) => {
+  const amenityLower = amenity.toLowerCase()
+  switch (true) {
+    case amenityLower.includes('fully furnished'): return HeartIcon
+    case amenityLower.includes('in house staff'): return UsersIcon
+    case amenityLower.includes('housekeeping'): return SparklesIcon
+    case amenityLower.includes('24/7 emergency'): return ClockIcon
+    case amenityLower.includes('walk'): return SunIcon
+    case amenityLower.includes('spaciou'): return HomeIcon
+    case amenityLower.includes('24/7 ems ambulance'): return TruckIcon
+    default: return CheckIcon
+  }
+}
 
 const route = useRoute()
 const store = usePropertiesStore()
@@ -264,8 +304,8 @@ function openModal(index) {
 }
 
 // New code for "See More" functionality
-const initialHospitalCount = 5
-const hospitalIncrement = 5
+const initialHospitalCount = 6
+const hospitalIncrement = 6
 const displayedHospitalCount = ref(initialHospitalCount)
 
 const displayedHospitals = computed(() => {
@@ -281,6 +321,11 @@ const showMoreHospitals = () => {
     displayedHospitalCount.value + hospitalIncrement,
     sortedHospitals.value.length
   )
+};
+
+const getGoogleMapsUrl = (hospital) => {
+  const queryString = `${hospital.name}, ${hospital.address}, ${hospital.latitude}, ${hospital.longitude}`.trim()
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(queryString)}`
 }
 
 onMounted(() => {

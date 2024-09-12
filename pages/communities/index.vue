@@ -1,33 +1,30 @@
 <template>
-    <div class="bg-gray-50 min-h-screen">
-      <div class="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <div class="flex flex-col first-line:mb-6">
-          <div class="pb-6">
-            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Communities</h2>
-            <p class="mt-6 text-lg leading-8 text-gray-600">Explore the different communities and find the one that is right for you.</p>
-            
-            
-          </div>
-  
-      
+  <div class="bg-gray-50 min-h-screen">
+    <div class="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+      <div class="flex flex-col first-line:mb-6">
+        <div class="pb-6">
+          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Communities</h2>
+          <p class="mt-6 text-lg leading-8 text-gray-600">Explore the different communities and find the one that is right for you.</p>
         </div>
-  
-        <!-- New dropdown for city selection -->
-        <div class="mb-6 max-w-lg">
-              <select
-                id="state"
-                name="state"
-                v-model="selectedState"
-                @change="handleStateChange"
-                class="block w-full rounded-md border-gray-300 px-4 py-3 focus:border-red-500 focus:ring-red-500 sm:text-sm [&_*]:text-black"
-              >
-                <option value="">Select a state</option>
-                <option value="california">California</option>
-                <option value="texas">Texas</option>
-              </select>
-            </div>
-  
-        <div v-if="properties.length > 0" class="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8">
+      </div>
+
+      <!-- Dropdown for state selection -->
+      <div class="mb-6 max-w-lg">
+        <select
+          id="state"
+          name="state"
+          v-model="selectedState"
+          @change="handleStateChange"
+          class="block w-full rounded-md border-gray-300 px-4 py-3 focus:border-red-500 focus:ring-red-500 sm:text-sm [&_*]:text-black"
+        >
+          <option value="">Select a state</option>
+          <option value="california">California</option>
+          <option value="texas">Texas</option>
+        </select>
+      </div>
+
+      <!-- Property list -->
+      <div v-if="properties.length > 0" class="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8">
         <div
           v-for="property in properties"
           :key="property.ID"
@@ -79,10 +76,12 @@
           </div>
         </div>
       </div>
+
+      <!-- No properties found message -->
       <div v-else class="text-center py-12">
         <h3 class="text-lg font-medium text-gray-900">No properties found</h3>
         <p class="mt-2 text-sm text-gray-500">
-          We currenly don't have any properties in that state. Please try selecting a different state.
+          We currently don't have any properties in that state. Please try selecting a different state.
         </p>
         <button
           @click="resetFilters"
@@ -91,57 +90,53 @@
           Reset Filters
         </button>
       </div>
-        <!-- Pagination controls -->
-        <div v-if="totalPages > 1" class="mt-8 flex justify-between items-center">
-          <button
-            @click="prevPage"
-            :disabled="currentPage === 1"
-            class="px-4 py-2 text-white bg-red-500 rounded disabled:opacity-50"
-          >
-            Previous
-          </button>
-          <p class="text-gray-900">
-            Page {{ currentPage }} of {{ totalPages }}
-          </p>
-          <button
-            @click="nextPage"
-            :disabled="currentPage === totalPages"
-            class="px-4 py-2 text-white bg-red-500 rounded disabled:opacity-50"
-          >
-            Next
-          </button>
-        </div>
+
+      <!-- Pagination controls -->
+      <div v-if="totalPages > 1" class="mt-8 flex justify-between items-center">
+        <button
+          @click="prevPage"
+          :disabled="currentPage === 1"
+          class="px-4 py-2 text-white bg-red-500 rounded disabled:opacity-50"
+        >
+          Previous
+        </button>
+        <p class="text-gray-900">
+          Page {{ currentPage }} of {{ totalPages }}
+        </p>
+        <button
+          @click="nextPage"
+          :disabled="currentPage === totalPages"
+          class="px-4 py-2 text-white bg-red-500 rounded disabled:opacity-50"
+        >
+          Next
+        </button>
       </div>
     </div>
-  </template>
+  </div>
+</template>
 
 <script setup>
+import { ref, computed, watch } from 'vue'
 import { usePropertiesStore } from '~/store/DataStore'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useRuntimeConfig } from '#app'
 
 useServerSeoMeta({
-        title: 'Harmony HomeCare LLC',
-        ogTitle: 'Harmony HomeCare LLC',
-    
-        author: 'Alex Martos',
-        charset: 'utf-8',
-    
-        description: "Making Home a Haven of Health and Happiness",
-        ogDescription: "Making Home a Haven of Health and Happiness",
-    
-        robots: 'index, follow',
-        googleSiteVerification: '',
-    
-        appleMobileWebAppCapable: 'yes',
-        mobileWebAppCapable: 'yes',
-    
-        ogImage: '/public/main-logo.svg',
-    
-        ogLocaleAlternate: ['es_LA'],
-        ogType: 'website',
-        viewport: 'width=device-width, initial-scale=1',
-    })
+  title: 'Harmony HomeCare LLC',
+  ogTitle: 'Harmony HomeCare LLC',
+  author: 'Alex Martos',
+  charset: 'utf-8',
+  description: "Making Home a Haven of Health and Happiness",
+  ogDescription: "Making Home a Haven of Health and Happiness",
+  robots: 'index, follow',
+  googleSiteVerification: '',
+  appleMobileWebAppCapable: 'yes',
+  mobileWebAppCapable: 'yes',
+  ogImage: '/public/main-logo.svg',
+  ogLocaleAlternate: ['es_LA'],
+  ogType: 'website',
+  viewport: 'width=device-width, initial-scale=1',
+})
 
 const itemsPerPage = ref(10);
 
@@ -151,13 +146,17 @@ const store = usePropertiesStore();
 const config = useRuntimeConfig();
 
 const currentPage = ref(1);
-const selectedState = ref(route.query.address ?? '');
+const selectedState = ref('');
 const googleMapsApiKey = config.public.GOOGLE_MAPS_API_KEY;
 
-const { data, pending, error, refresh } = await useAsyncData(
+const { data, pending, error, execute } = useLazyAsyncData(
   'assistedLivingProperties',
   () => store.get(currentPage.value, itemsPerPage.value, null, true, selectedState.value)
 );
+
+const refreshData = async () => {
+  await execute();
+};
 
 const totalPages = computed(() => Math.ceil(store.total / itemsPerPage.value));
 
@@ -166,32 +165,39 @@ const properties = computed(() => store.properties.map(property => ({
   images: property.images.length ? JSON.parse(property.images) : []
 })));
 
-const handleStateChange = () => {
+watch(() => route.query, async (newQuery) => {
+  if (newQuery.address !== selectedState.value) {
+    selectedState.value = newQuery.address || '';
+    currentPage.value = 1;
+    await refreshData();
+  }
+}, { immediate: true });
+
+const handleStateChange = async () => {
   currentPage.value = 1;
-  router.push({ query: { address: selectedState.value } });
-  refresh();
+  await router.push({ query: { address: selectedState.value || undefined } });
+  await refreshData();
 };
 
-
-const nextPage = () => {
+const nextPage = async () => {
   if (currentPage.value < totalPages.value) {
     currentPage.value++;
-    refresh();
+    await refreshData();
   }
 };
 
-const prevPage = () => {
+const prevPage = async () => {
   if (currentPage.value > 1) {
     currentPage.value--;
-    refresh();
+    await refreshData();
   }
 };
 
-const resetFilters = () => {
+const resetFilters = async () => {
   selectedState.value = '';
   currentPage.value = 1;
-  router.push({ query: {} });
-  refresh();
+  await router.push({ query: {} });
+  await refreshData();
 };
 
 const getModifiedImageUrl = (url) => {
@@ -211,4 +217,3 @@ const getModifiedImageUrl = (url) => {
   return url;
 };
 </script>
-  

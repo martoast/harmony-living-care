@@ -144,7 +144,6 @@ const submitForm = async () => {
       body: payload
     });
 
-    alert('Submitted!!! We will be in touch.')
 
     // Reset form after successful submission
     Object.keys(form).forEach(key => form[key] = '');
@@ -152,7 +151,7 @@ const submitForm = async () => {
     console.error('Error submitting form', error);
     data.errors = error.response?._data?.errors || { general: 'An error occurred while submitting the form' };
   } finally {
-    data.loading = false;
+    alert('Submitted!!! We will be in touch.')
   }
 };
 </script>
