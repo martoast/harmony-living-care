@@ -37,6 +37,12 @@
               <div>
                 <p class="text-base text-gray-500">&ldquo;{{ service.testimonial.quote }}&rdquo;</p>
               </div>
+              <!-- Add 5-star reviews here -->
+              <div class="mt-2 flex items-center">
+           
+                  <StarIcon v-for="i in 5" :key="i" class="h-5 w-5 text-red-500" aria-hidden="true" />
+         
+              </div>
               <footer class="mt-3">
                 <div class="flex items-center space-x-3">
                   <div class="flex-shrink-0">
@@ -70,13 +76,15 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { PlusIcon, HomeIcon, UserGroupIcon } from '@heroicons/vue/24/outline'
+import { StarIcon } from '@heroicons/vue/24/solid'
 
 const rootElement = ref(null)
-    const options = {
-        url: 'https://calendly.com/e_steban/harmony-discovery-call?primary_color=ef4444', 
-        text: 'Schedule a call', 
-    }
+const options = {
+    url: 'https://calendly.com/e_steban/harmony-discovery-call?primary_color=ef4444', 
+    text: 'Schedule a call', 
+}
 
 const services = [
   {
@@ -86,9 +94,9 @@ const services = [
     imageSrc: '/feature1.jpg',
     imageAlt: 'Hospice care environment',
     testimonial: {
-      quote: 'The hospice team provided incredible support during my father\'s final days. Their compassion and expertise made a difficult time more bearable.',
-      author: 'Michael Thompson, Son of Patient',
-      avatarSrc: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80'
+      quote: 'My grandpa loves his nurse',
+      author: 'Jon Motsenbocker',
+      avatarSrc: 'https://lh3.googleusercontent.com/a-/ALV-UjWMPWu4OZwbHiOCQ6xfgBdV-kdvXXRldaWJVDTUHc7m1lGAl577=w120-h120-p-rp-mo-br100'
     }
   },
   {
@@ -98,9 +106,9 @@ const services = [
     imageSrc: '/tea.jpeg',
     imageAlt: 'Assisted living community',
     testimonial: {
-      quote: 'Moving to assisted living was a big step, but the staff here made the transition smooth and enjoyable. I feel like I\'m part of a caring community.',
-      author: 'Eleanor Simmons, Resident',
-      avatarSrc: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80'
+      quote: "I couldn't be more impressed with the assisted living care and support provided by Harmony Home Care. Their team is incredibly compassionate, attentive, and professional. They went above and beyond to ensure my grandmother received the best possible care, making this difficult time much easier for our family...",
+      author: 'Will Smith',
+      avatarSrc: 'https://lh3.googleusercontent.com/a-/ALV-UjXplbzhOcqwPNo8S9T_tVoxKJcRht_1ab-6n5sqAPp5UwuNr5Yu=w120-h120-p-rp-mo-br100'
     }
   },
   {
@@ -110,9 +118,9 @@ const services = [
     imageSrc: '/group-home2.jpg',
     imageAlt: 'Group home environment',
     testimonial: {
-      quote: 'The group home has been a blessing for our family. Mom receives personalized care while maintaining her sense of independence in a warm, home-like setting.',
-      author: 'Sarah Johnson, Daughter of Resident',
-      avatarSrc: 'https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80'
+      quote: 'Esteban and his team did an amazing job navigating and helping me select the best option for home care! His attention to detail in his explanation and hospitality he gave me as he helped me was beyond amazing!',
+      author: 'Alex Arroyo',
+      avatarSrc: 'https://lh3.googleusercontent.com/a/ACg8ocIbYvJml8zR1jznhI0g2bX_CpfOaVQq7LUx5IKnnSaZEqYiaA=w120-h120-p-rp-mo-br100'
     }
   }
 ]
