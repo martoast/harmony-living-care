@@ -53,11 +53,5 @@ export default defineNuxtConfig({
     isEnabled: true,
     loadWidgetCSS: true,
     loadWidgetCloseIconSvg: true
-  },
-  routeRules: {
-    '/': { ssr: false },
-    '/login/**': { ssr: false },
-    '/careers/**': { ssr: false },
-    '/communities/**': { ssr: false },
   }
 })

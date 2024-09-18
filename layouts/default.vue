@@ -8,7 +8,7 @@
 
 <script setup>
 
-useServerSeoMeta({
+useSeoMeta({
         robots: 'index, follow',
         title: 'Harmony Homecare',
         ogTitle: 'Harmony Homecare',
@@ -16,15 +16,15 @@ useServerSeoMeta({
         author: 'Alex Martos',
         charset: 'utf-8',
     
-        description: "Making Home a Haven of Health and Happiness",
-        ogDescription: "Making Home a Haven of Health and Happiness",
+        description: "Making Home a Haven of Health and Happiness. From personalized care plans to specialized memory care, our compassionate team is dedicated to providing exceptional support in a warm and nurturing environment designed for comfort and well-being.",
+        ogDescription: "Making Home a Haven of Health and Happiness. From personalized care plans to specialized memory care, our compassionate team is dedicated to providing exceptional support in a warm and nurturing environment designed for comfort and well-being.",
     
-        googleSiteVerification: '',
+        googleSiteVerification: 'ByJ5-rnCYL33Ld2dFoqsnAIRz2LmOc58iB52O8eOaPQ',
     
         appleMobileWebAppCapable: 'yes',
         mobileWebAppCapable: 'yes',
     
-        ogImage: '/public/logo.jpg',
+        ogImage: 'https://www.discoverycommons.com/wp-content/uploads/2021/10/Happy-group-of-senior-people-having-fun-together.jpg',
     
         ogLocaleAlternate: ['es_LA'],
         ogType: 'website',

@@ -69,7 +69,12 @@
             <h3 class="text-sm font-medium text-gray-900">Share on</h3>
             <ul role="list" class="mt-4 flex items-center space-x-6">
               <li>
-                <a :href="`https://www.facebook.com/sharer/sharer.php?u=https://harmony-livingcare.web.app/communities/${property.ID}/&t=${encodeURIComponent('Check out this property!')}`" class="flex h-6 w-6 items-center justify-center text-gray-400 hover:text-gray-500" target="_blank">
+                <a 
+                  :href="`https://www.facebook.com/sharer/sharer.php?u=https://harmonylivingcare.com/communities/${property.ID}/`" 
+                  class="flex h-6 w-6 items-center justify-center text-gray-400 hover:text-gray-500" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
                   <span class="sr-only">Share on Facebook</span>
                   <svg class="h-5 w-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M20 10c0-5.523-4.477-10-10-10S0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V10h2.54V7.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V10h2.773l-.443 2.89h-2.33v6.988C16.343 19.128 20 14.991 20 10z" clip-rule="evenodd" />
@@ -173,8 +178,10 @@ import {
   ClockIcon,
   TruckIcon,
   SunIcon,
-  CheckIcon
+  CheckIcon,
+  BuildingOffice2Icon
 } from '@heroicons/vue/20/solid'
+
 
 const getAmenityIcon = (amenity) => {
   const amenityLower = amenity.toLowerCase()
@@ -202,8 +209,6 @@ const isModalOpen = ref(false)
 const selectedImageIndex = ref(0)
 
 
-
-
 await useAsyncData('property', () => store.find(route.params.id))
 
 const property = computed(() => ({
@@ -212,6 +217,16 @@ const property = computed(() => ({
   images: store.property.images.length ? JSON.parse(store.property.images) : [],
   amenities: store.property.amenities ? JSON.parse(store.property.amenities) : [],
 }))
+
+useSeoMeta({
+  title: () => `${property.value?.address} | Harmony Living Care`,
+  ogTitle: () => `${property.value?.address} | Harmony Living Care`,
+  description: () => property.value?.description,
+  ogDescription: () => property.value?.description,
+  ogImage: () => property.value?.images[0],
+  twitterCard: () => 'summary_large_image',
+  googleSiteVerification: 'ByJ5-rnCYL33Ld2dFoqsnAIRz2LmOc58iB52O8eOaPQ',
+})
 
 
 const sortedHospitals = computed(() => {
@@ -331,4 +346,6 @@ const getGoogleMapsUrl = (hospital) => {
 onMounted(() => {
   initMap()
 })
+
+
 </script>
