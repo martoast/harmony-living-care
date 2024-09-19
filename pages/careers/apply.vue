@@ -1,98 +1,102 @@
 <template>
-    <div class="bg-white px-6 py-24 sm:py-32 lg:px-8" v-if="job">
-      <div class="mx-auto max-w-2xl text-center">
-        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Apply for {{ job.role }}</h2>
-        <p class="mt-2 text-lg leading-8 text-gray-600">{{ job.description }}</p>
-      </div>
-      <form @submit.prevent="submitApplication" class="mx-auto mt-16 max-w-xl sm:mt-20">
-        <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-          <div>
-            <label for="first-name" class="block text-sm font-semibold leading-6 text-gray-900">First name</label>
-            <div class="mt-2.5">
-              <input type="text" name="first-name" id="first-name" autocomplete="given-name" v-model="form.firstName" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm sm:leading-6" required>
-            </div>
-          </div>
-          <div>
-            <label for="last-name" class="block text-sm font-semibold leading-6 text-gray-900">Last name</label>
-            <div class="mt-2.5">
-              <input type="text" name="last-name" id="last-name" autocomplete="family-name" v-model="form.lastName" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm sm:leading-6" required>
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <label for="email" class="block text-sm font-semibold leading-6 text-gray-900">Email</label>
-            <div class="mt-2.5">
-              <input type="email" name="email" id="email" autocomplete="email" v-model="form.email" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm sm:leading-6" required>
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <label for="phone-number" class="block text-sm font-semibold leading-6 text-gray-900">Phone number</label>
-            <div class="relative mt-2.5">
-              <input type="tel" name="phone-number" id="phone-number" autocomplete="tel" v-model="form.phone" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm sm:leading-6" required>
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <label for="resume" class="block text-sm font-semibold leading-6 text-gray-900">Resume (PDF)</label>
-            <div class="mt-2.5">
-              <input type="file" name="resume" id="resume" accept=".pdf" @change="handleFileUpload" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100 hover:cursor-pointer" required>
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <label for="cover-letter" class="block text-sm font-semibold leading-6 text-gray-900">Cover Letter</label>
-            <div class="mt-2.5">
-              <textarea name="cover-letter" id="cover-letter" rows="4" v-model="form.coverLetter" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm sm:leading-6" required></textarea>
-            </div>
-          </div>
-          <div class="flex gap-x-4 sm:col-span-2">
-            <div class="flex h-6 items-center">
-              <input type="checkbox" id="privacy-policy" v-model="form.agreeToPolicy" class="h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-600" required>
-            </div>
-            <label for="privacy-policy" class="text-sm leading-6 text-gray-600">
-              By selecting this, you agree to our
-              <a href="/privacy-policy" class="font-semibold text-red-500">privacy&nbsp;policy</a>.
-            </label>
-          </div>
-        </div>
-        <div class="mt-10">
-          <button type="submit" :disabled="loading" class="block w-full rounded-md bg-red-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
-            {{ loading ? 'Submitting...' : 'Submit Application' }}
-          </button>
-        </div>
-      </form>
-      <div v-if="error" class="mt-4 text-red-600">{{ error }}</div>
+  <div class="bg-white px-6 py-24 sm:py-32 lg:px-8" v-if="job">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Apply for {{ job.role }}</h2>
+      <p class="mt-2 text-lg leading-8 text-gray-600">{{ job.description }}</p>
     </div>
-  </template>
-  
-  <script setup>
-  import { ref, reactive, computed } from 'vue'
-  import { useRoute } from 'vue-router'
-  import { doc } from 'firebase/firestore'
+    <form @submit.prevent="submitApplication" class="mx-auto mt-16 max-w-xl sm:mt-20">
+      <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+        <div>
+          <label for="first-name" class="block text-sm font-semibold leading-6 text-gray-900">First name</label>
+          <div class="mt-2.5">
+            <input type="text" name="first-name" id="first-name" autocomplete="given-name" v-model="form.firstName" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm sm:leading-6" required>
+          </div>
+        </div>
+        <div>
+          <label for="last-name" class="block text-sm font-semibold leading-6 text-gray-900">Last name</label>
+          <div class="mt-2.5">
+            <input type="text" name="last-name" id="last-name" autocomplete="family-name" v-model="form.lastName" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm sm:leading-6" required>
+          </div>
+        </div>
+        <div class="sm:col-span-2">
+          <label for="email" class="block text-sm font-semibold leading-6 text-gray-900">Email</label>
+          <div class="mt-2.5">
+            <input type="email" name="email" id="email" autocomplete="email" v-model="form.email" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm sm:leading-6" required>
+          </div>
+        </div>
+        <div class="sm:col-span-2">
+          <label for="phone-number" class="block text-sm font-semibold leading-6 text-gray-900">Phone number</label>
+          <div class="relative mt-2.5">
+            <input type="tel" name="phone-number" id="phone-number" autocomplete="tel" v-model="form.phone" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm sm:leading-6" required>
+          </div>
+        </div>
+        <div class="sm:col-span-2">
+          <label for="resume" class="block text-sm font-semibold leading-6 text-gray-900">Resume (PDF)</label>
+          <div class="mt-2.5">
+            <input type="file" name="resume" id="resume" accept=".pdf" @change="handleFileUpload" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100 hover:cursor-pointer" required>
+          </div>
+        </div>
+        <div class="sm:col-span-2">
+          <label for="cover-letter" class="block text-sm font-semibold leading-6 text-gray-900">Cover Letter</label>
+          <div class="mt-2.5">
+            <textarea name="cover-letter" id="cover-letter" rows="4" v-model="form.coverLetter" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm sm:leading-6" required></textarea>
+          </div>
+        </div>
+        <div class="flex gap-x-4 sm:col-span-2">
+          <div class="flex h-6 items-center">
+            <input type="checkbox" id="privacy-policy" v-model="form.agreeToPolicy" class="h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-600" required>
+          </div>
+          <label for="privacy-policy" class="text-sm leading-6 text-gray-600">
+            By selecting this, you agree to our
+            <a href="/privacy-policy" class="font-semibold text-red-500">privacy&nbsp;policy</a>.
+          </label>
+        </div>
+      </div>
+      <div class="mt-10">
+        <button type="submit" :disabled="loading" class="block w-full rounded-md bg-red-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
+          {{ loading ? 'Submitting...' : 'Submit Application' }}
+        </button>
+      </div>
+      <div class="mt-4 text-sm text-gray-500">
+        We are committed to protecting your privacy and handling your information in accordance with HIPAA. Your data is encrypted and HIPAA compliant. For more information, please read our <a href="/hipaa" class="text-red-500 hover:text-red-400 underline">HIPAA Policy</a>.
+      </div>
+    </form>
+    <div v-if="error" class="mt-4 text-red-600">{{ error }}</div>
+  </div>
+</template>
 
-  const { $modelsRef } = useNuxtApp();
-  
-  const route = useRoute()
-  
-  const jobId = route.query.id
+<script setup>
+import { ref, reactive } from 'vue'
+import { useRoute } from 'vue-router'
+import { doc } from 'firebase/firestore'
+import { useDocument } from 'vuefire'
 
-  const { data: job } = await useDocument(doc($modelsRef, jobId))
+const { $modelsRef } = useNuxtApp();
 
-  const form = reactive({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    resume: null,
-    coverLetter: '',
-    agreeToPolicy: false
-  })
-  
-  const loading = ref(false)
-  const error = ref(null)
-  
-  const handleFileUpload = (event) => {
-    form.resume = event.target.files[0]
-  }
-  
-  const submitApplication = async () => {
+const route = useRoute()
+
+const jobId = route.query.id
+
+const { data: job } = await useDocument(doc($modelsRef, jobId))
+
+const form = reactive({
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  resume: null,
+  coverLetter: '',
+  agreeToPolicy: false
+})
+
+const loading = ref(false)
+const error = ref(null)
+
+const handleFileUpload = (event) => {
+  form.resume = event.target.files[0]
+}
+
+const submitApplication = async () => {
   loading.value = true
   error.value = null
 
@@ -138,4 +142,4 @@
     loading.value = false
   }
 }
-  </script>
+</script>

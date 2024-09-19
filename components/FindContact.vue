@@ -63,20 +63,36 @@
 
               <div class="sm:col-span-3">
                 <label for="budget" class="block text-sm font-medium text-gray-300">Budget</label>
-                <select v-model="form.budget" required id="budget" name="budget" class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 py-1.5 text-white shadow-sm focus:border-red-500 focus:ring-white sm:text-sm">
-                  <option value="">Select a budget range</option>
-                  <option value="under-3000">Under $3,000 per month</option>
-                  <option value="3000-4000">$3,000 - $4,000 per month</option>
-                  <option value="4000-5000">$4,000 - $5,000 per month</option>
-                  <option value="5000-6000">$5,000 - $6,000 per month</option>
-                  <option value="over-6000">Over $6,000 per month</option>
-                </select>
+                <CurrencyInput
+                  v-model="form.budget"
+                  name="budget"
+                  id="budget"
+                />
               </div>
 
               <div class="sm:col-span-9">
                 <label for="notes" class="block text-sm font-medium text-gray-300">Notes</label>
                 <textarea v-model="form.notes" id="notes" name="notes" rows="2" class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 py-1.5 text-white shadow-sm focus:border-red-500 focus:ring-white sm:text-sm"></textarea>
               </div>
+            </div>
+
+            <div class="mt-6 sm:col-span-9">
+              <div class="flex items-start">
+                <div class="flex-shrink-0">
+                  <input v-model="form.termsAccepted" required id="terms" name="terms" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-red-500 focus:ring-red-500" />
+                </div>
+                <div class="ml-3">
+                  <label for="terms" class="text-sm text-gray-300">
+                    I understand and agree to the <a href="/privacy-policy" class="text-red-500 hover:text-red-400 underline">Privacy Policy</a>.
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 sm:col-span-9">
+              <p class="text-sm text-gray-300">
+                We are committed to protecting your privacy and handling your information in accordance with HIPAA. Your data is encrypted and HIPAA compliant. For more information, please read our <a href="/hipaa" class="text-red-500 hover:text-red-400 underline">HIPAA Policy</a>.
+              </p>
             </div>
 
             <div class="mt-10 flex flex-col sm:flex-row items-center sm:items-start justify-around gap-y-6 sm:gap-x-6">
@@ -106,7 +122,9 @@ const services = ref([
   { value: 'assisted-living', label: 'Assisted Living' },
   { value: 'independent-living', label: 'Independent Living' },
   { value: 'memory-care', label: 'Memory Care' },
-  { value: 'skilled-nursing', label: 'Skilled Nursing' }
+  { value: 'skilled-nursing', label: 'Skilled Nursing' },
+  { value: 'veteran-housing', label: 'Veteran Housing' },
+  { value: 'daycare', label: 'Daycare' },
 ])
 
 const states = [
@@ -127,7 +145,8 @@ const form = reactive({
   services: [],
   timeframe: '',
   budget: '',
-  notes: ''
+  notes: '',
+  termsAccepted: false
 })
 
 const submitForm = async () => {
@@ -147,6 +166,7 @@ const submitForm = async () => {
 
     // Reset form after successful submission
     Object.keys(form).forEach(key => form[key] = '');
+    form.termsAccepted = false;
   } catch (error) {
     console.error('Error submitting form', error);
     data.errors = error.response?._data?.errors || { general: 'An error occurred while submitting the form' };

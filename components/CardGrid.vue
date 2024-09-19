@@ -66,7 +66,7 @@
     },
     {
       title: 'Contact us',
-      href: '/#contact',
+      href: '/#inquiry',
       icon: ChatBubbleBottomCenterTextIcon,
       iconForeground: 'text-red-700',
       iconBackground: 'bg-red-50',

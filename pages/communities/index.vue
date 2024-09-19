@@ -18,8 +18,12 @@
           class="block w-full rounded-md border-gray-300 px-4 py-3 focus:border-red-500 focus:ring-red-500 sm:text-sm [&_*]:text-black"
         >
           <option value="">Select a state</option>
+          <option value="alabama">Alabama</option>
+          <option value="arizona">Arizona</option>
           <option value="california">California</option>
+          <option value="florida">Florida</option>
           <option value="texas">Texas</option>
+          
         </select>
       </div>
 

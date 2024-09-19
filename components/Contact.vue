@@ -1,7 +1,7 @@
 <template>
   <div id="contact" class="relative bg-white">
     <div class="lg:absolute lg:inset-0 lg:left-1/2">
-      <img class="h-64 w-full bg-gray-50 object-cover sm:h-80 lg:absolute lg:h-full" src="/backyard.jpg" alt="" />
+      <img class="h-64 w-full bg-gray-50 object-cover sm:h-80 lg:absolute lg:h-full" src="/jobs.jpg" alt="" />
     </div>
     <div class="pb-24 pt-16 sm:pb-32 sm:pt-24 lg:mx-auto lg:grid lg:max-w-7xl lg:grid-cols-2 lg:pt-32">
       <div class="px-6 lg:px-8">
@@ -52,10 +52,15 @@
                   </div>
                   <div class="ml-3 text-sm">
                     <label for="terms" class="font-medium text-gray-700">
-                      I understand that by submitting this information I am agreeing to receive email and phone communication from Harmony Homecare LLC*
+                      I understand that by submitting this information I am agreeing to receive email and phone communication from Harmony Homecare LLC* and I have read and agree to the <a href="/privacy-policy" class="text-red-500 hover:text-red-600 underline">Privacy Policy</a>.
                     </label>
                   </div>
                 </div>
+              </div>
+              <div class="sm:col-span-2">
+                <p class="text-sm text-gray-500">
+                  We are committed to protecting your privacy and handling your information in accordance with applicable laws, including HIPAA. For more information, please read our <a href="/hipaa" class="text-red-500 hover:text-red-600 underline">HIPAA Policy</a>.
+                </p>
               </div>
             </div>
             <div class="mt-10 flex justify-end border-t border-gray-900/10 pt-8">

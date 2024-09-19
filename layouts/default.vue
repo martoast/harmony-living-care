@@ -16,8 +16,8 @@ useSeoMeta({
         author: 'Alex Martos',
         charset: 'utf-8',
     
-        description: "Making Home a Haven of Health and Happiness. From personalized care plans to specialized memory care, our compassionate team is dedicated to providing exceptional support in a warm and nurturing environment designed for comfort and well-being.",
-        ogDescription: "Making Home a Haven of Health and Happiness. From personalized care plans to specialized memory care, our compassionate team is dedicated to providing exceptional support in a warm and nurturing environment designed for comfort and well-being.",
+        description: "Our mission is simple: provide dignity, comfort, and a sense of belonging to those who need it most. From personalized care plans to specialized memory care, our compassionate team is dedicated to providing exceptional support in a warm and nurturing environment designed for comfort and well-being.",
+        ogDescription: "Our mission is simple: provide dignity, comfort, and a sense of belonging to those who need it most. From personalized care plans to specialized memory care, our compassionate team is dedicated to providing exceptional support in a warm and nurturing environment designed for comfort and well-being.",
     
         googleSiteVerification: 'ByJ5-rnCYL33Ld2dFoqsnAIRz2LmOc58iB52O8eOaPQ',
     

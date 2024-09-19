@@ -10,12 +10,14 @@
           <div class="lg:max-w-lg">
             <p class="text-sm font-semibold uppercase tracking-wide text-red-500">Senior Living &amp; Memory Care</p>
             <h1 class="mt-4 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">Making Home a Haven of Health and Happiness</h1>
-            <p class="mt-4 text-xl text-gray-500">We prioritize the well-being of our residents, ensuring their homes are a sanctuary of health and happiness.</p>
+            <p class="mt-4 text-xl text-gray-500">Our mission is simple: provide dignity, comfort, and a sense of belonging to those who need it most.</p>
             <form @submit.prevent="submitForm" class="mt-10 mb-2">
               <label for="city" class="block text-sm font-medium text-gray-700 mb-3">Select a state</label>
               <div class="mt-1 flex rounded-md shadow-sm">
                 <select id="state" name="state" v-model="data.form.state" required class="block w-full rounded-md border-gray-300 px-4 py-3 focus:border-red-500 focus:ring-red-500 sm:text-sm [&_*]:text-black">
                   <option value="">Select a state</option>
+                  <option value="alabama">Alabama</option>
+                  <option value="arizona">Arizona</option>
                   <option value="california">California</option>
                   <option value="texas">Texas</option>
                 </select>

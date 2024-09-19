@@ -13,7 +13,7 @@
 
       <div class="pb-6">
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Find the perfect home for you</h2>
-          <p class="mt-6 text-lg leading-8 text-gray-600">Discover our thoughtfully designed assisted living spaces, where your unique needs are our priority. With homes across California, Texas, and Florida, you're sure to find the perfect location that feels just right for you or your loved one.</p>
+          <p class="mt-6 text-lg leading-8 text-gray-600">Discover our thoughtfully designed assisted living spaces, where your unique needs are our priority. With homes across Arizona, California, Texas, and Florida, you're sure to find the perfect location that feels just right for you or your loved one.</p>
           
           
         </div>
@@ -28,8 +28,12 @@
               class="block w-full rounded-md border-gray-300 px-4 py-3 focus:border-red-500 focus:ring-red-500 sm:text-sm [&_*]:text-black"
             >
               <option value="">Select a state</option>
+              <option value="alabama">Alabama</option>
+              <option value="arizona">Arizona</option>
               <option value="california">California</option>
+              <option value="florida">Florida</option>
               <option value="texas">Texas</option>
+
             </select>
           </div>
 

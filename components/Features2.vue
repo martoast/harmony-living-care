@@ -50,6 +50,16 @@
                   </div>
                   <div class="text-base font-medium text-gray-700">{{ service.testimonial.author }}</div>
                 </div>
+                <div class="mt-2">
+                  <a 
+                    href="https://www.google.com/search?client=safari&sca_esv=d4927bc780c8916e&hl=en-us&cs=0&output=search&q=Harmony+Home+Care&ludocid=5161754072448489233&lsig=AB86z5UIgwi-nk6tg8Tc-tTb2Bxz&shndl=-1&shem=lrnolc,lsde,vslcea&source=sh/x/loc/act/m4/3#lrd=0x865cf7e4d2d26f3f:0x47a23bfb1237d711,1,,,,"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-sm text-red-500 hover:text-red-600 transition-colors duration-300"
+                  >
+                    Leave us a review on Google
+                  </a>
+                </div>
               </footer>
             </blockquote>
           </div>

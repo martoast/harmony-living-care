@@ -46,7 +46,7 @@ const nuxtApp = useNuxtApp()
 
         map.scrollZoom.disable();
 
-        const statesWithBusiness = ["06", "48", "12", "01"] // Example state IDs for California, Texas, Florida
+        const statesWithBusiness = ["06", "48", "12", "01", "04"] 
 
         map.on('load', () => {
             map.addSource('states', {

@@ -89,7 +89,7 @@ const navigation = {
     { name: 'Life at Harmony', href: '/life-at-harmony' },
   ],
   company: [
-    { name: 'About', href: '/#about' },
+    { name: 'My story', href: '/about' },
     { name: 'Care Services', href: '/#services' },
     { name: 'Careers', href: '/careers' },
     { name: 'Invest with us', href: '/invest' },

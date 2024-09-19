@@ -2,7 +2,9 @@
     <div>
       <Hero/>
       <FindContact/>
+      
       <Stats id="about"/>
+      
       <Mission/>
       
       <Features2 id="services"/>
@@ -58,7 +60,7 @@ import Communities from '~/components/Communities.vue';
 
         map.scrollZoom.disable();
 
-        const statesWithBusiness = ["06", "48", "12", "01"] // Example state IDs for California, Texas, Florida
+        const statesWithBusiness = ["06", "48", "12", "01", "04"] // Example state IDs for California, Texas, Florida
 
         map.on('load', () => {
             map.addSource('states', {
