@@ -243,7 +243,7 @@ const initMap = () => {
     container: "map",
     style: "mapbox://styles/mapbox/streets-v12",
     center: [property.value.longitude, property.value.latitude],
-    zoom: 14,
+    zoom: 10,
     touchZoomRotate: {around: 'center'},
     scrollZoom: {around: 'center'},
   })
