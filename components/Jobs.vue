@@ -1,75 +1,96 @@
 <template>
-  <!-- Content section -->
-  <div class="mx-auto my-24 max-w-7xl px-6 sm:mt-22 lg:px-8">
-    <div class="mx-auto flex max-w-2xl flex-col items-start justify-between gap-16 lg:mx-0 lg:max-w-none lg:flex-row">
-      <div class="w-full lg:max-w-lg lg:flex-auto">
-        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Career search</h2>
-        <p class="mb-6 mt-2 text-xl leading-8 text-gray-600">If you have a heart for serving others and want to make a meaningful difference in the lives of seniors, we'd love to welcome you to our family.</p>
-        <!-- Search input -->
-        <div class="my-6">
-          <label for="search" class="sr-only">Search jobs</label>
-          <div class="relative">
-            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-              </svg>
-            </div>
-            <input
-              type="search"
-              id="search"
-              v-model="searchTerm"
-              class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-red-400 focus:border-red-400"
-              placeholder="Search for jobs by role or location..."
-            >
-          </div>
-        </div>
+  <div class="bg-white py-8 sm:py-12">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2">
+        <div>
+          <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mb-6">Career Search</h1>
+      <p class="mt-2 max-w-xl text-xl text-gray-600 mb-8">
+        If you have a heart for serving others and want to make a meaningful difference in the lives of seniors, we'd love to welcome you to our family.
+      </p>
 
-        <!-- <img src="/jobs.jpg" alt="" class="mt-16 aspect-[6/5] w-full rounded-2xl bg-gray-50 object-cover lg:aspect-auto lg:h-[34.5rem]" /> -->
-        <div class="w-full h-[50vh] mt-8 lg:mt-0">
-          <div id="map" class="h-full border border-gray-300 shadow-sm rounded-lg"></div>
+      <!-- Search input -->
+      <div class="mb-8 max-w-xl">
+        <label for="search" class="sr-only">Search jobs</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+          <input
+            type="search"
+            id="search"
+            v-model="searchTerm"
+            class="block w-full p-4 pl-10 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-red-500 focus:border-red-500"
+            placeholder="Search for jobs by role or location..."
+          >
         </div>
       </div>
-      <div class="w-full lg:max-w-xl lg:flex-auto">
-        <h3 class="font-bold"><span class="text-red-500 mb-3">{{filteredJobs.length }}</span> Live Results </h3>
-        
-        <ul class="-my-8 divide-y divide-gray-100">
-          <li v-for="opening in filteredJobs" :key="opening.id" class="py-8">
-            <div class="relative rounded-lg p-4 transition-shadow duration-300 hover:shadow-lg">
-              <dl class="flex flex-wrap gap-x-3">
-                <dt class="sr-only">Role</dt>
-                <dd class="w-full flex-none text-lg font-semibold tracking-tight text-gray-900">
-                  <a :href="'/careers/apply?id=' + opening.id">
-                    {{ opening.role }}
-                    <span class="absolute inset-0" aria-hidden="true" />
-                  </a>
-                </dd>
-                <dt class="sr-only">Description</dt>
-                <dd class="mt-2 w-full flex-none text-base leading-7 text-gray-600">{{ opening.description }}</dd>
-                <dt class="sr-only">Salary</dt>
-                <dd class="mt-4 text-base font-semibold leading-7 text-gray-900">{{ opening.salary }}</dd>
-                <dt class="sr-only">Location</dt>
-                <dd class="mt-4 flex items-center gap-x-3 text-base leading-7 text-gray-500">
-                  <svg viewBox="0 0 2 2" class="h-0.5 w-0.5 flex-none fill-gray-300" aria-hidden="true">
-                    <circle cx="1" cy="1" r="1" />
-                  </svg>
-                  {{ opening.location }}
-                </dd>
-                <dt class="sr-only">Job Type</dt>
-                <dd class="mt-4 flex items-center gap-x-3 text-base leading-7 text-gray-500">
-                  <svg viewBox="0 0 2 2" class="h-0.5 w-0.5 flex-none fill-gray-300" aria-hidden="true">
-                    <circle cx="1" cy="1" r="1" />
-                  </svg>
-                  {{ opening.type }}
-                </dd>
-              </dl>
-              <div class="mt-4 flex justify-end">
-                <p class="text-sm font-semibold leading-6 text-red-500 hover:text-red-400">
-                  Apply now! <span aria-hidden="true">&rarr;</span>
-                </p>
+
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+        <span class="text-red-500">{{ filteredJobs.length }}</span> Live Results
+      </h2>
+        </div>
+        <div id="map" class="h-full w-full"></div>
+      </div>
+      <!-- Job listings -->
+      <ul role="list" class="divide-y divide-gray-200">
+        <li 
+          v-for="job in displayedJobs" 
+          :key="job.id" 
+          class="py-6 hover:bg-gray-50 transition duration-150 ease-in-out rounded-lg"
+        >
+          <div class="flex items-center space-x-4 px-4">
+            <div class="flex-1 min-w-0">
+              <h3 class="text-lg font-medium text-gray-900">
+                {{ job.role }}
+              </h3>
+              <p class="mt-1 text-gray-500">{{ job.description }}</p>
+              <div class="mt-2 flex items-center text-sm text-gray-500">
+                <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                {{ job.location }}
+              </div>
+              <div class="mt-2 flex items-center text-sm text-gray-500">
+                <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+                {{ job.type }}
               </div>
             </div>
-          </li>
-        </ul>
+            <div class="flex flex-col items-end">
+              <p class="text-lg font-semibold text-gray-900">{{ job.salary }}</p>
+              <a :href="'/careers/apply?id=' + job.id" class="mt-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                Apply now
+              </a>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Pagination -->
+      <div class="mt-8 flex items-center justify-between">
+        <button
+          @click="prevPage"
+          :disabled="currentPage === 1"
+          class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+          :class="{ 'opacity-50 cursor-not-allowed': currentPage === 1 }"
+        >
+          Previous
+        </button>
+        <span class="text-sm text-gray-700">
+          Page {{ currentPage }} of {{ totalPages }}
+        </span>
+        <button
+          @click="nextPage"
+          :disabled="currentPage === totalPages"
+          class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+          :class="{ 'opacity-50 cursor-not-allowed': currentPage === totalPages }"
+        >
+          Next
+        </button>
       </div>
     </div>
   </div>
@@ -83,6 +104,8 @@ const { $modelsRef } = useNuxtApp();
 const { data: jobs } = useCollection($modelsRef)
 
 const searchTerm = ref('')
+const currentPage = ref(1)
+const itemsPerPage = 5;
 
 const filteredJobs = computed(() => {
   if (!jobs.value || jobs.value.length === 0) return []
@@ -96,4 +119,20 @@ const filteredJobs = computed(() => {
     (job.role && job.role.toLowerCase().includes(lowercaseSearch))
   )
 })
+
+const totalPages = computed(() => Math.ceil(filteredJobs.value.length / itemsPerPage))
+
+const displayedJobs = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage
+  const end = start + itemsPerPage
+  return filteredJobs.value.slice(start, end)
+})
+
+const prevPage = () => {
+  if (currentPage.value > 1) currentPage.value--
+}
+
+const nextPage = () => {
+  if (currentPage.value < totalPages.value) currentPage.value++
+}
 </script>
