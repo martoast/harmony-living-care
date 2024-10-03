@@ -1,6 +1,7 @@
 <template>
     <div>
       <Hero/>
+      <StickyBar/>
       <FindContact/>
       
       <Stats id="about"/>

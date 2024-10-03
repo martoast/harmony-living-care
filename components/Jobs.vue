@@ -1,46 +1,46 @@
 <template>
-  <div class="bg-white py-8 sm:py-12">
+  <div class="bg-white py-12 sm:py-18">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-2">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div>
           <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mb-6">Career Search</h1>
-      <p class="mt-2 max-w-xl text-xl text-gray-600 mb-8">
-        If you have a heart for serving others and want to make a meaningful difference in the lives of seniors, we'd love to welcome you to our family.
-      </p>
+          <p class="mt-2 max-w-xl text-xl text-gray-600 mb-8">
+            If you have a heart for serving others and want to make a meaningful difference in the lives of seniors, we'd love to welcome you to our family.
+          </p>
 
-      <!-- Search input -->
-      <div class="mb-8 max-w-xl">
-        <label for="search" class="sr-only">Search jobs</label>
-        <div class="relative">
-          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
+          <!-- Search input -->
+          <div class="mb-8 max-w-xl">
+            <label for="search" class="sr-only">Search jobs</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+              </div>
+              <input
+                type="search"
+                id="search"
+                v-model="searchTerm"
+                class="block w-full p-4 pl-10 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-red-500 focus:border-red-500"
+                placeholder="Search for jobs by role or location..."
+              >
+            </div>
           </div>
-          <input
-            type="search"
-            id="search"
-            v-model="searchTerm"
-            class="block w-full p-4 pl-10 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-red-500 focus:border-red-500"
-            placeholder="Search for jobs by role or location..."
-          >
-        </div>
-      </div>
 
-      <h2 class="text-2xl font-semibold text-gray-900 mb-4">
-        <span class="text-red-500">{{ filteredJobs.length }}</span> Live Results
-      </h2>
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            <span class="text-red-500">{{ filteredJobs.length }}</span> Live Results
+          </h2>
         </div>
-        <div id="map" class="h-full w-full"></div>
       </div>
+      
       <!-- Job listings -->
-      <ul role="list" class="divide-y divide-gray-200">
+      <ul role="list" class="divide-y divide-gray-200 mt-8">
         <li 
           v-for="job in displayedJobs" 
           :key="job.id" 
           class="py-6 hover:bg-gray-50 transition duration-150 ease-in-out rounded-lg"
         >
-          <div class="flex items-center space-x-4 px-4">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 px-4">
             <div class="flex-1 min-w-0">
               <h3 class="text-lg font-medium text-gray-900">
                 {{ job.role }}
@@ -60,7 +60,7 @@
                 {{ job.type }}
               </div>
             </div>
-            <div class="flex flex-col items-end">
+            <div class="flex flex-col items-start sm:items-end">
               <p class="text-lg font-semibold text-gray-900">{{ job.salary }}</p>
               <a :href="'/careers/apply?id=' + job.id" class="mt-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                 Apply now
