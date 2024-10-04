@@ -174,7 +174,7 @@
                 :to="`/communities/${property.ID}/apply`"
                 class="flex w-full items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200"
               >
-                <ClipboardDocumentIcon class="w-5 h-5 mr-2" />
+                <ClipboardIcon class="w-5 h-5 mr-2" />
                 Apply Now as a Resident
               </NuxtLink>
               <div class="text-center">
@@ -198,7 +198,7 @@
 
             <!-- Review CTA -->
             <a
-              :href="googleReviewUrl"
+              :href="property.google_review_url ? property.google_review_url : '#'"
               target="_blank"
               rel="noopener noreferrer"
               class="flex w-full items-center justify-center px-8 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
@@ -239,7 +239,7 @@
             </div>
           </div>
 
-          <div v-if="property.nearby_hospitals.length" class="mt-10">
+          <!-- <div v-if="nearby_hospitals.length" class="mt-10">
             <h3 class="text-xl font-semibold text-gray-900 mb-6">
               Nearby Medical Facilities
             </h3>
@@ -273,14 +273,7 @@
                 </div>
               </div>
             </div>
-            <button
-              v-if="hasMoreHospitals"
-              @click="showMoreHospitals"
-              class="mt-6 text-sm font-medium text-red-600 hover:text-red-500 focus:outline-none focus:underline"
-            >
-              See More Hospitals
-            </button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -312,7 +305,6 @@
 <script setup>
 import { usePropertiesStore } from "~/store/DataStore";
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
-import { ClipboardIcon } from "@heroicons/vue/24/outline";
 
 import {
   HeartIcon,
@@ -324,6 +316,7 @@ import {
   SunIcon,
   CheckIcon,
   BuildingOffice2Icon,
+  ClipboardIcon, StarIcon, CalendarIcon
 } from "@heroicons/vue/20/solid";
 
 const getAmenityIcon = (amenity) => {
@@ -360,18 +353,19 @@ const showCopiedTooltip = ref(false);
 const isModalOpen = ref(false);
 const selectedImageIndex = ref(0);
 
+const attractions = ref([])
+
 await useAsyncData("property", () => store.find(route.params.id));
 
 const property = computed(() => ({
   ...store.property,
-  nearby_hospitals: store.property.nearby_hospitals
-    ? JSON.parse(store.property.nearby_hospitals)
-    : [],
   images: store.property.images.length ? JSON.parse(store.property.images) : [],
   amenities: store.property.amenities
     ? JSON.parse(store.property.amenities)
     : [],
 }));
+
+
 
 useSeoMeta({
   title: () => `${property.value?.address} | Harmony Living Care`,
@@ -383,15 +377,8 @@ useSeoMeta({
   googleSiteVerification: "ByJ5-rnCYL33Ld2dFoqsnAIRz2LmOc58iB52O8eOaPQ",
 });
 
-const sortedHospitals = computed(() => {
-  return property.value.nearby_hospitals
-    .slice()
-    .sort((a, b) => b.rating - a.rating);
-});
-
 let map = {};
 let marker = null;
-const hospitalMarkers = ref([]);
 
 const initMap = () => {
   mapboxgl.accessToken = access_token;
@@ -406,9 +393,14 @@ const initMap = () => {
 
   map.on("load", () => {
     addPropertyMarker();
-    addHospitalsMarker();
+    if (attractions.value.length > 0) {
+      attractions.value.forEach(attraction => {
+        addAttractionMarker(attraction);
+      });
+    }
   });
 };
+
 
 const addPropertyMarker = () => {
   if (marker) marker.remove();
@@ -425,57 +417,51 @@ const addPropertyMarker = () => {
     .addTo(map);
 };
 
-const addHospitalsMarker = () => {
-  hospitalMarkers.value.forEach((marker) => marker.remove());
-  hospitalMarkers.value = [];
-
-  property.value.nearby_hospitals.forEach((hospital) => {
-    const el = document.createElement("div");
-    el.className = "custom-marker hospital-marker";
-    el.innerHTML = "H";
-    el.style.backgroundColor = "#bb2b2b";
-    el.style.color = "#FFFFFF";
-    el.style.width = "24px";
-    el.style.height = "24px";
-    el.style.borderRadius = "50%";
-    el.style.border = "2px solid #FFFFFF";
-    el.style.fontSize = "14px";
-    el.style.fontWeight = "bold";
-    el.style.display = "flex";
-    el.style.justifyContent = "center";
-    el.style.alignItems = "center";
-    el.style.boxShadow = "0 2px 4px rgba(0,0,0,0.3)";
-
-    // Create a comprehensive query string for Google Maps
-    const queryString =
-      `${hospital.name}, ${hospital.address}, ${hospital.latitude}, ${hospital.longitude}`.trim();
-    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-      queryString
-    )}`;
-
-    const hospitalMarker = new mapboxgl.Marker(el)
-      .setLngLat([hospital.longitude, hospital.latitude])
+const addAttractionMarker = (attraction) => {
+    const { lat, lng } = attraction.geometry.location;
+    const placeTypes = attraction.types;
+    
+    let placeType = 'Other';
+    let iconHtml = '';
+    if (placeTypes.includes('hospital')) {
+      placeType = 'Hospital';
+      // Use PlusCircleIcon for hospitals
+      iconHtml = `
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 9h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 112 0v3z"/>
+        </svg>
+      `;
+    } else if (placeTypes.includes('shopping_mall')) {
+      placeType = 'Shopping Mall';
+      // Use ShoppingBagIcon for shopping malls
+      iconHtml = `
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M10 2a3 3 0 00-3 3v1H6a2 2 0 00-2 2v7a2 2 0 002 2h8a2 2 0 002-2V8a2 2 0 00-2-2h-1V5a3 3 0 00-3-3zm1 4V5a1 1 0 10-2 0v1h2z"/>
+        </svg>
+      `;
+    }
+  
+    const el = document.createElement('div');
+    el.innerHTML = iconHtml;
+    el.style.width = '24px';
+    el.style.height = '24px';
+  
+    new mapboxgl.Marker({ element: el })
+      .setLngLat([lng, lat])
       .setPopup(
-        new mapboxgl.Popup({ offset: 25 }) // Adjusted offset for larger marker
-          .setHTML(`
-            <div class="p-2">
-              <h3 class="font-bold text-sm mb-1">${hospital.name}</h3>
-              <p class="text-xs">${hospital.address}</p>
-              <p class="text-xs">Distance: ${hospital.distance} miles</p>
-              <a href="${googleMapsUrl}" target="_blank" rel="noopener noreferrer" class="text-xs text-blue-600 hover:text-blue-800 mt-1 block">View on Google Maps</a>
-            </div>
-          `)
+        new mapboxgl.Popup({ offset: 25 }).setHTML(createAttractionPopupContent(attraction, placeType))
       )
       .addTo(map);
+  };
 
-    hospitalMarkers.value.push(hospitalMarker);
-  });
-
-  const bounds = new mapboxgl.LngLatBounds();
-  bounds.extend([property.value.longitude, property.value.latitude]);
-  property.value.nearby_hospitals.forEach((hospital) => {
-    bounds.extend([hospital.longitude, hospital.latitude]);
-  });
+  const createAttractionPopupContent = (attraction, placeType) => {
+  return `
+    <div class="p-2">
+      <h3 class="text-sm font-semibold">${attraction.name.text}</h3>
+      <p class="text-xs text-gray-500">Type: ${placeType}</p>
+      <p class="text-xs text-gray-500">Rating: ${attraction.rating || 'N/A'}</p>
+    </div>
+  `;
 };
 
 function openModal(index) {
@@ -483,33 +469,6 @@ function openModal(index) {
   isModalOpen.value = true;
 }
 
-// New code for "See More" functionality
-const initialHospitalCount = 6;
-const hospitalIncrement = 6;
-const displayedHospitalCount = ref(initialHospitalCount);
-
-const displayedHospitals = computed(() => {
-  return sortedHospitals.value.slice(0, displayedHospitalCount.value);
-});
-
-const hasMoreHospitals = computed(() => {
-  return displayedHospitalCount.value < sortedHospitals.value.length;
-});
-
-const showMoreHospitals = () => {
-  displayedHospitalCount.value = Math.min(
-    displayedHospitalCount.value + hospitalIncrement,
-    sortedHospitals.value.length
-  );
-};
-
-const getGoogleMapsUrl = (hospital) => {
-  const queryString =
-    `${hospital.name}, ${hospital.address}, ${hospital.latitude}, ${hospital.longitude}`.trim();
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    queryString
-  )}`;
-};
 
 const formatNumberToCurrency = (number) => {
   return number
@@ -539,11 +498,6 @@ const socialShares = computed(() => [
   },
 ]);
 
-const googleReviewUrl = computed(() => {
-  // Replace with actual Google Review URL when available
-  return `https://search.google.com/local/writereview?placeid=`;
-});
-
 const copyToClipboard = () => {
   navigator.clipboard
     .writeText(window.location.href)
@@ -557,8 +511,48 @@ const copyToClipboard = () => {
       console.error("Failed to copy text: ", err);
     });
 };
-
-onMounted(() => {
+const fetchPropertyAndAttractions = async () => {
+  await store.find(route.params.id);
+  await fetchNearbyAttractions();
   initMap();
-});
+};
+
+const fetchNearbyAttractions = async () => {
+  if (property.value && property.value.latitude && property.value.longitude) {
+    try {
+      console.log('Fetching nearby attractions...');
+      const { data, error } = await useFetch('/api/nearby-attractions', {
+        params: {
+          latitude: property.value.latitude,
+          longitude: property.value.longitude
+        }
+      });
+
+      if (error.value) {
+        console.error('Error fetching nearby attractions:', error.value);
+        return;
+      }
+
+      console.log('Fetched data:', data.value);
+
+      if (data.value && data.value.results) {
+        attractions.value = data.value.results;
+        console.log('Attractions set:', attractions.value);
+      } else {
+        console.warn('No results found in the fetched data');
+      }
+    } catch (error) {
+      console.error('Error in fetchNearbyAttractions:', error);
+    }
+  } else {
+    console.warn('Property data not available for fetching nearby attractions');
+  }
+};
+
+// Initialize data on first load
+onMounted(fetchPropertyAndAttractions);
+
+// Re-fetch data when the route changes
+watch(() => route.params.id, fetchPropertyAndAttractions);
+
 </script>
