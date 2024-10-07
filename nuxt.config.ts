@@ -16,6 +16,11 @@ export default defineNuxtConfig({
     format: ['webp', 'png', 'jpg', 'svg'],
     sizes: 'sm:100vw md:50vw lg:400px'
   },
+  vue: {  
+    compilerOptions: {
+      isCustomElement: (tag) => ['mapbox-search-box'].includes(tag),
+    },
+  },
   vuefire: {
     auth: {
       enabled: true

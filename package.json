@@ -13,6 +13,7 @@
     "@firebase/app-types": "^0.9.2",
     "@headlessui/vue": "^1.7.22",
     "@heroicons/vue": "^2.1.5",
+    "@mapbox/search-js-web": "^1.0.0-beta.22",
     "@nuxt/image": "^1.7.0",
     "@pinia/nuxt": "^0.5.3",
     "@tailwindcss/aspect-ratio": "^0.4.2",

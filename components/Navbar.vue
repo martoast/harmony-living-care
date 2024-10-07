@@ -64,6 +64,8 @@
 
             <NuxtLink to="/#faq" :class="linkClass('/#faq')">FAQs</NuxtLink>
             <NuxtLink to="/careers" :class="linkClass('/careers')">Careers</NuxtLink>
+            <NuxtLink to="/medical-transportation" :class="linkClass('/medical-transportation')">Medical transportation</NuxtLink>
+
           </div>
         </div>
         <div class="flex items-center">
@@ -107,6 +109,8 @@
         <DisclosureButton as="a" href="/communities/" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6">Communities</DisclosureButton>
         <DisclosureButton as="a" href="/#faq" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6">FAQs</DisclosureButton>
         <DisclosureButton as="a" href="/careers" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6">Careers</DisclosureButton>
+        <DisclosureButton as="a" href="/medical-transportation" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6">Medical Transportation</DisclosureButton>
+
       </div>
       <div v-if="user" class="border-t border-gray-200 pb-3 pt-4">
         <div class="flex items-center px-4 sm:px-6">
