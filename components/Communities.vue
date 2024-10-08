@@ -1,15 +1,7 @@
 <template>
   <div class="bg-gray-50 min-h-screen">
     <div class="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-      <div class="flex flex-col items-center mb-6">
-        
-
-        <div class="w-full h-[50vh] mt-8 lg:mt-0">
-          <div id="map" class="h-full border border-gray-300 shadow-sm rounded-lg"></div>
-        </div>
-      </div>
-
-      <WhyChoose/>
+      
 
       <div class="pb-6">
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Find the perfect home for you</h2>
