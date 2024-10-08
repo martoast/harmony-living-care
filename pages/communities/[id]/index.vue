@@ -198,7 +198,9 @@
 
             <!-- Review CTA -->
             <a
-              :href="property.google_review_url ? property.google_review_url : '#'"
+              :href="
+                property.google_review_url ? property.google_review_url : '#'
+              "
               target="_blank"
               rel="noopener noreferrer"
               class="flex w-full items-center justify-center px-8 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
@@ -239,41 +241,64 @@
             </div>
           </div>
 
-          <!-- <div v-if="nearby_hospitals.length" class="mt-10">
-            <h3 class="text-xl font-semibold text-gray-900 mb-6">
-              Nearby Medical Facilities
-            </h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div
-                v-for="hospital in displayedHospitals"
-                :key="hospital.name"
-                class="bg-white rounded-lg shadow-sm border border-gray-200 p-4"
-              >
-                <div class="flex items-start">
-                  <BuildingOffice2Icon
-                    class="w-6 h-6 text-red-500 mr-3 flex-shrink-0 mt-1"
-                  />
-                  <div>
-                    <h4 class="text-sm font-medium text-gray-900">
-                      {{ hospital.name }}
-                    </h4>
-                    <p class="text-sm text-gray-500 mt-1">
-                      {{ hospital.distance }} miles away
-                    </p>
-
-                    <a
-                      :href="getGoogleMapsUrl(hospital)"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="text-sm text-blue-600 hover:text-blue-800 mt-2 inline-block"
-                    >
-                      View on Google Maps
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> -->
+          <div v-if="hospitals.length" class="mt-10">
+    <h3 class="text-xl font-semibold text-gray-900 mb-6">
+      Nearby Medical Facilities
+    </h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div
+        v-for="hospital in paginatedHospitals"
+        :key="hospital.name.text"
+        class="bg-white rounded-lg shadow-sm border border-gray-200 p-4"
+      >
+        <div class="flex items-start">
+          <BuildingOffice2Icon
+            class="w-6 h-6 text-red-500 mr-3 flex-shrink-0 mt-1"
+          />
+          <div>
+            <h4 class="text-sm font-medium text-gray-900">
+              {{ hospital.name.text }}
+            </h4>
+            <p
+              v-if="hospital.rating"
+              class="text-sm text-gray-500 mt-1"
+            >
+              Rating: {{ hospital.rating }}
+            </p>
+            <a
+              :href="getGoogleMapsUrl(hospital)"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-sm text-blue-600 hover:text-blue-800 mt-2 inline-block"
+            >
+              View on Google Maps
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Pagination controls -->
+    <div class="mt-6 flex justify-between items-center">
+      <button 
+        @click="prevPage" 
+        :disabled="currentPage === 1"
+        class="px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Previous
+      </button>
+      <span class="text-sm text-gray-700">
+        Page {{ currentPage }} of {{ totalPages }}
+      </span>
+      <button 
+        @click="nextPage" 
+        :disabled="currentPage === totalPages"
+        class="px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Next
+      </button>
+    </div>
+  </div>
         </div>
       </div>
     </div>
@@ -316,7 +341,9 @@ import {
   SunIcon,
   CheckIcon,
   BuildingOffice2Icon,
-  ClipboardIcon, StarIcon, CalendarIcon
+  ClipboardIcon,
+  StarIcon,
+  CalendarIcon,
 } from "@heroicons/vue/20/solid";
 
 const getAmenityIcon = (amenity) => {
@@ -353,7 +380,7 @@ const showCopiedTooltip = ref(false);
 const isModalOpen = ref(false);
 const selectedImageIndex = ref(0);
 
-const attractions = ref([])
+const attractions = ref([]);
 
 await useAsyncData("property", () => store.find(route.params.id));
 
@@ -365,7 +392,43 @@ const property = computed(() => ({
     : [],
 }));
 
+const currentPage = ref(1);
+const itemsPerPage = 6; // Adjust this number to change items per page
 
+const hospitals = computed(() => {
+  return attractions.value.filter(attraction => 
+    attraction.types.includes('hospital') || 
+    attraction.types.includes('doctor')
+  );
+});
+
+const totalPages = computed(() => Math.ceil(hospitals.value.length / itemsPerPage));
+
+const paginatedHospitals = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  return hospitals.value.slice(start, end);
+});
+
+const nextPage = () => {
+  if (currentPage.value < totalPages.value) {
+    currentPage.value++;
+  }
+};
+
+const prevPage = () => {
+  if (currentPage.value > 1) {
+    currentPage.value--;
+  }
+};
+
+
+const getGoogleMapsUrl = (hospital) => {
+  const query = encodeURIComponent(hospital.name.text);
+  const lat = hospital.geometry.location.lat;
+  const lng = hospital.geometry.location.lng;
+  return `https://www.google.com/maps/search/?api=1&query=${query}&query_place_id=${lat},${lng}`;
+};
 
 useSeoMeta({
   title: () => `${property.value?.address} | Harmony Living Care`,
@@ -394,13 +457,12 @@ const initMap = () => {
   map.on("load", () => {
     addPropertyMarker();
     if (attractions.value.length > 0) {
-      attractions.value.forEach(attraction => {
+      attractions.value.forEach((attraction) => {
         addAttractionMarker(attraction);
       });
     }
   });
 };
-
 
 const addPropertyMarker = () => {
   if (marker) marker.remove();
@@ -418,48 +480,50 @@ const addPropertyMarker = () => {
 };
 
 const addAttractionMarker = (attraction) => {
-    const { lat, lng } = attraction.geometry.location;
-    const placeTypes = attraction.types;
-    
-    let placeType = 'Other';
-    let iconHtml = '';
-    if (placeTypes.includes('hospital')) {
-      placeType = 'Hospital';
-      // Use PlusCircleIcon for hospitals
-      iconHtml = `
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 9h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 112 0v3z"/>
-        </svg>
-      `;
-    } else if (placeTypes.includes('shopping_mall')) {
-      placeType = 'Shopping Mall';
-      // Use ShoppingBagIcon for shopping malls
-      iconHtml = `
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M10 2a3 3 0 00-3 3v1H6a2 2 0 00-2 2v7a2 2 0 002 2h8a2 2 0 002-2V8a2 2 0 00-2-2h-1V5a3 3 0 00-3-3zm1 4V5a1 1 0 10-2 0v1h2z"/>
-        </svg>
-      `;
-    }
-  
-    const el = document.createElement('div');
-    el.innerHTML = iconHtml;
-    el.style.width = '24px';
-    el.style.height = '24px';
-  
-    new mapboxgl.Marker({ element: el })
-      .setLngLat([lng, lat])
-      .setPopup(
-        new mapboxgl.Popup({ offset: 25 }).setHTML(createAttractionPopupContent(attraction, placeType))
-      )
-      .addTo(map);
-  };
+  const { lat, lng } = attraction.geometry.location;
+  const placeTypes = attraction.types;
 
-  const createAttractionPopupContent = (attraction, placeType) => {
+  let placeType = "Other";
+  let iconHtml = "";
+  if (placeTypes.includes("hospital")) {
+    placeType = "Hospital";
+    // Use universal 'H' symbol for hospitals
+    iconHtml = `
+        <div style="background-color: #FF0000; width: 24px; height: 24px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+          <span style="color: white; font-weight: bold; font-size: 16px;">H</span>
+        </div>
+      `;
+  } else if (placeTypes.includes("shopping_mall")) {
+    placeType = "Shopping Mall";
+    // Use ShoppingBagIcon for shopping malls
+    iconHtml = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-blue-500">
+          <path fill-rule="evenodd" d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 004.25 22.5h15.5a1.875 1.875 0 001.865-2.071l-1.263-12a1.875 1.875 0 00-1.865-1.679H16.5V6a4.5 4.5 0 10-9 0zM12 3a3 3 0 00-3 3v.75h6V6a3 3 0 00-3-3zm-3 8.25a3 3 0 106 0v-.75a.75.75 0 011.5 0v.75a4.5 4.5 0 11-9 0v-.75a.75.75 0 011.5 0v.75z" clip-rule="evenodd" />
+        </svg>
+      `;
+  }
+
+  const el = document.createElement("div");
+  el.innerHTML = iconHtml;
+  el.style.width = "24px";
+  el.style.height = "24px";
+
+  new mapboxgl.Marker({ element: el })
+    .setLngLat([lng, lat])
+    .setPopup(
+      new mapboxgl.Popup({ offset: 25 }).setHTML(
+        createAttractionPopupContent(attraction, placeType)
+      )
+    )
+    .addTo(map);
+};
+
+const createAttractionPopupContent = (attraction, placeType) => {
   return `
     <div class="p-2">
       <h3 class="text-sm font-semibold">${attraction.name.text}</h3>
       <p class="text-xs text-gray-500">Type: ${placeType}</p>
-      <p class="text-xs text-gray-500">Rating: ${attraction.rating || 'N/A'}</p>
+      <p class="text-xs text-gray-500">Rating: ${attraction.rating || "N/A"}</p>
     </div>
   `;
 };
@@ -468,7 +532,6 @@ function openModal(index) {
   selectedImageIndex.value = index;
   isModalOpen.value = true;
 }
-
 
 const formatNumberToCurrency = (number) => {
   return number
@@ -520,32 +583,32 @@ const fetchPropertyAndAttractions = async () => {
 const fetchNearbyAttractions = async () => {
   if (property.value && property.value.latitude && property.value.longitude) {
     try {
-      console.log('Fetching nearby attractions...');
-      const { data, error } = await useFetch('/api/nearby-attractions', {
+      console.log("Fetching nearby attractions...");
+      const { data, error } = await useFetch("/api/nearby-attractions", {
         params: {
           latitude: property.value.latitude,
-          longitude: property.value.longitude
-        }
+          longitude: property.value.longitude,
+        },
       });
 
       if (error.value) {
-        console.error('Error fetching nearby attractions:', error.value);
+        console.error("Error fetching nearby attractions:", error.value);
         return;
       }
 
-      console.log('Fetched data:', data.value);
+      console.log("Fetched data:", data.value);
 
       if (data.value && data.value.results) {
         attractions.value = data.value.results;
-        console.log('Attractions set:', attractions.value);
+        console.log("Attractions set:", attractions.value);
       } else {
-        console.warn('No results found in the fetched data');
+        console.warn("No results found in the fetched data");
       }
     } catch (error) {
-      console.error('Error in fetchNearbyAttractions:', error);
+      console.error("Error in fetchNearbyAttractions:", error);
     }
   } else {
-    console.warn('Property data not available for fetching nearby attractions');
+    console.warn("Property data not available for fetching nearby attractions");
   }
 };
 
@@ -554,5 +617,4 @@ onMounted(fetchPropertyAndAttractions);
 
 // Re-fetch data when the route changes
 watch(() => route.params.id, fetchPropertyAndAttractions);
-
 </script>
