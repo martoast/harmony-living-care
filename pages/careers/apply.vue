@@ -202,8 +202,7 @@ useSeoMeta({
   ogTitle: () => `${job.value?.role} | Harmony Living Care`,
   description: () => job.value?.description,
   ogDescription: () => job.value?.description,
-  ogImage: () =>
-    "https://www.discoverycommons.com/wp-content/uploads/2021/10/Happy-group-of-senior-people-having-fun-together.jpg",
+  ogImage: () => job.value?.image,
   twitterCard: () => "summary_large_image",
   googleSiteVerification: "ByJ5-rnCYL33Ld2dFoqsnAIRz2LmOc58iB52O8eOaPQ",
 });

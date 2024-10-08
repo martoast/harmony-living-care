@@ -81,7 +81,7 @@ const navigation = {
     { name: 'Independent Living', href: '/services/independent-living' },
     { name: 'Memory Care', href: '/services/memory-care' },
     { name: 'Skilled Nursing', href: '/services/skilled-nursing' },
-    { name: 'Medical Trasportation', href: '/medical-transportation' },
+    { name: 'Medical Transportation', href: '/medical-transportation' },
     
   ],
   support: [
