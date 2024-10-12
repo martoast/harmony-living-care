@@ -23,6 +23,8 @@
     "firebase-admin": "^12.3.1",
     "firebase-functions": "^5.0.1",
     "firebase-functions-test": "^3.3.0",
+    "google-auth-library": "^9.14.2",
+    "googleapis": "^144.0.0",
     "mapbox-gl": "^3.5.2",
     "nuxt": "^3.12.4",
     "nuxt-calendly": "^0.1.21",

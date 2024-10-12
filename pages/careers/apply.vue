@@ -120,7 +120,8 @@
               name="resume"
               id="resume"
               accept=".pdf"
-              @change="handleFileUpload"
+              multiple
+              @change="(e) => handleFileUpload(e, 'resumes')"
               class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100 hover:cursor-pointer"
               required
             />
@@ -212,7 +213,6 @@ const form = reactive({
   lastName: "",
   email: "",
   phone: "",
-  resume: null,
   coverLetter: "",
   agreeToPolicy: false,
 });
@@ -220,41 +220,113 @@ const form = reactive({
 const loading = ref(false);
 const error = ref(null);
 
-const handleFileUpload = (event) => {
-  form.resume = event.target.files[0];
+const files = ref({
+  images: null,
+  resumes: null,
+});
+
+// Function to create a folder
+async function createFolder(folderName, parentFolderId = null) {
+  const response = await fetch("/api/createGoogleDriveFolder", {
+    method: "POST",
+    body: JSON.stringify({ folderName, parentFolderId }),
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.error || "Failed to create folder");
+  }
+  return data.folderId;
+}
+
+// Function to upload a file
+async function uploadFile(fileName, fileContent, folderId) {
+  const response = await fetch("/api/uploadFileToGoogleDrive", {
+    method: "POST",
+    body: JSON.stringify({ fileName, fileContent, folderId }),
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.error || "Failed to upload file");
+  }
+  return data.fileId;
+}
+
+const handleFileUpload = (event, type) => {
+  const _files = Array.from(event.target.files);
+
+  if (!files.value[type]) {
+    files.value[type] = [];
+  }
+
+  _files.forEach((file) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      files.value[type].push({
+        filename: file.name,
+        content: e.target.result.split(",")[1], // This gets the base64 part of the result
+        type: file.type,
+      });
+    };
+    reader.readAsDataURL(file);
+  });
 };
 
 const submitApplication = async () => {
   loading.value = true;
   error.value = null;
 
-  const formData = new FormData();
-
-  // Append form fields
-  Object.entries(form).forEach(([key, value]) => {
-    if (key !== "resume" && value !== null && value !== undefined) {
-      formData.append(key, value.toString());
-    }
-  });
-
-  // Append file
-  if (form.resume instanceof File) {
-    formData.append("resume", form.resume, form.resume.name);
-  }
-
-  // Append job details
-  if (job.value) {
-    Object.entries(job.value).forEach(([key, value]) => {
-      if (value !== null && value !== undefined) {
-        formData.append(key, value.toString());
-      }
-    });
-  }
-
   try {
+    // Create a new folder in Google Drive
+    const folderName = form.firstName + " " + form.lastName;
+    const folderId = await createFolder(
+      folderName,
+      // "1RVnpNvy26p_xDhH_TmlJWsZWk7xVTCrv"
+      "1UOzIl-jvhRhxb6jXA2s-nqH1dEq1-nw8"
+    );
+
+    let uploadedFiles = {
+      resumes: [],
+      images: [],
+    };
+
+    // Function to upload files
+    const uploadFiles = async (fileArray, type) => {
+      for (const file of fileArray) {
+        try {
+          const fileId = await uploadFile(
+            file.filename,
+            file.content,
+            folderId
+          );
+          uploadedFiles[type].push({
+            fileId: fileId,
+            fileName: file.filename,
+          });
+          console.log(`${type} uploaded successfully. File ID: ${fileId}`);
+        } catch (error) {
+          console.error(`Error uploading ${type}:`, error);
+          // You might want to handle this error differently, e.g., continue with other files
+        }
+      }
+    };
+
+    // Upload resumes
+    if (files.value.resumes && files.value.resumes.length > 0) {
+      await uploadFiles(files.value.resumes, "resumes");
+    }
+
+    // Prepare the payload for the webhook
+    const payload = {
+      lead: {
+        ...form,
+        ...job.value
+      },
+    };
+
     const response = await $fetch("/api/application-webhook", {
       method: "POST",
-      body: formData,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
     });
 
     console.log("Response:", response);

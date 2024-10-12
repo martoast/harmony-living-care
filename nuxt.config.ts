@@ -51,6 +51,7 @@ export default defineNuxtConfig({
     GOOGLE_APPLICATION_CREDENTIALS: process.env.GOOGLE_APPLICATION_CREDENTIALS,
     public: {
       MAPBOX_API_TOKEN: process.env.MAPBOX_API_TOKEN,
+      GOOGLE_SHEETS_API_CREDENTIALS: process.env.GOOGLE_SHEETS_API_CREDENTIALS,
       GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY,
     }
   },
