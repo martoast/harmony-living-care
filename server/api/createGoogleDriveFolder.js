@@ -4,10 +4,13 @@ import { JWT } from 'google-auth-library';
 export default defineEventHandler(async (event) => {
   console.log('Received request to create Google Drive folder');
 
+  const config = useRuntimeConfig();
+  const google_api_credentials = config.public.GOOGLE_SHEETS_API_CREDENTIALS;
+
   // Parse the credentials from the environment variable
   let credentials;
   try {
-    credentials = JSON.parse(process.env.GOOGLE_SHEETS_API_CREDENTIALS);
+    credentials = JSON.parse(google_api_credentials);
   } catch (error) {
     console.error('Error parsing credentials:', error);
     throw createError({

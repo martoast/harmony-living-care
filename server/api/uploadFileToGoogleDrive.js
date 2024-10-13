@@ -4,9 +4,12 @@ import { Readable } from 'stream';
 
 export default defineEventHandler(async (event) => {
 
+  const config = useRuntimeConfig();
+  const google_api_credentials = config.public.GOOGLE_SHEETS_API_CREDENTIALS;
+
   let credentials;
   try {
-    credentials = JSON.parse(process.env.GOOGLE_SHEETS_API_CREDENTIALS);
+    credentials = JSON.parse(google_api_credentials);
   } catch (error) {
     console.error('Error parsing credentials:', error);
     throw createError({
