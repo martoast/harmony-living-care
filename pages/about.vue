@@ -1,7 +1,7 @@
 <template>
     <div>
         <About/>
-        <Testimonial/>
+        <!-- <Testimonial/> -->
         <CTA/>
     </div>
 </template>

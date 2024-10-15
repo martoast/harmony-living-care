@@ -69,13 +69,21 @@
           </div>
         </div>
         <div class="flex items-center">
-          <div class="flex-shrink-0">
-            <a href="tel:+1(956)382-4168" class="relative inline-flex items-center gap-x-1.5 rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
+          <!-- <div class="flex-shrink-0">
+            <a href="tel:+1(xxx)xxx-xxxx" class="relative inline-flex items-center gap-x-1.5 rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
               <PhoneIcon class="-ml-0.5 h-5 w-5" aria-hidden="true"></PhoneIcon>
               {{options.text}}
             </a>
 
-          </div>
+          </div> -->
+          <button type="button" class="relative inline-flex items-center gap-x-1.5 rounded-md bg-red-500 px-3 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
+            <PhoneIcon class="-ml-0.5 h-5 w-5" aria-hidden="true"></PhoneIcon>
+                  <CalendlyPopupButton
+                      v-bind="options"
+                      :root-element="rootElement"
+                  />
+                 
+                </button>
           <div class="hidden md:ml-4 md:flex md:flex-shrink-0 md:items-center">
             <!-- Profile dropdown -->
             <Menu as="div" class="relative ml-3" v-if="user">
@@ -146,7 +154,8 @@ const route = useRoute()
 
 const rootElement = ref(null)
 const options = {
-    text: '(956) 382-4168', 
+    url: 'https://calendly.com/e_steban/discovery-call?primary_color=ef4444', 
+    text: 'Schedule a call', 
 }
 
 const dropdowns = reactive({

@@ -25,7 +25,7 @@ import { PhoneIcon } from '@heroicons/vue/20/solid'
 
 const rootElement = ref(null)
     const options = {
-        url: 'https://calendly.com/e_steban/harmony-discovery-call?primary_color=ef4444', 
+        url: 'https://calendly.com/e_steban/discovery-call?primary_color=ef4444', 
         text: 'Schedule Discovery Call', 
     }
 
