@@ -22,13 +22,10 @@
               <h2 class="text-3xl font-bold tracking-tight text-gray-900">{{ service.title }}</h2>
               <p class="mt-4 text-lg text-gray-500">{{ service.description }}</p>
               <div class="mt-6">
-                <button type="button" class="relative inline-flex items-center gap-x-1.5 rounded-md bg-red-500 px-3 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
-                  <CalendlyPopupButton
-                      v-bind="options"
-                      :root-element="rootElement"
-                  />
-                 
-                </button>
+                <a href="tel:+1(571)458-1036" class="relative inline-flex items-center gap-x-1.5 rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
+                    <PhoneIcon class="-ml-0.5 h-5 w-5" aria-hidden="true"></PhoneIcon>
+                    Call today
+                  </a>
               </div>
             </div>
           </div>
@@ -88,6 +85,7 @@
 <script setup>
 import { ref } from 'vue'
 import { PlusIcon, HomeIcon, UserGroupIcon } from '@heroicons/vue/24/outline'
+import { PhoneIcon } from '@heroicons/vue/20/solid'
 import { StarIcon } from '@heroicons/vue/24/solid'
 
 const rootElement = ref(null)
