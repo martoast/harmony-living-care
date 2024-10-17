@@ -60,12 +60,12 @@
         </div>
       </div>
       <div class="mt-16 border-t border-gray-900/10 pt-8 sm:mt-20 md:flex md:items-center md:justify-between lg:mt-24">
-        <div class="flex space-x-6 md:order-2">
+        <!-- <div class="flex space-x-6 md:order-2">
           <a v-for="item in navigation.social" :key="item.name" :href="item.href" class="text-gray-400 hover:text-gray-500">
             <span class="sr-only">{{ item.name }}</span>
             <component :is="item.icon" class="h-6 w-6" aria-hidden="true" />
           </a>
-        </div>
+        </div> -->
         <p class="mt-8 text-xs leading-5 text-gray-500 md:order-1 md:mt-0">&copy; 2024 Harmony HomeCare LLC, Inc. All rights reserved.</p>
       </div>
     </div>
@@ -91,7 +91,7 @@ const navigation = {
     { name: 'Life at Harmony', href: '/life-at-harmony' },
   ],
   company: [
-    { name: 'My story', href: '/about' },
+    { name: 'Our Story', href: '/about' },
     { name: 'Care Services', href: '/#services' },
     { name: 'Careers', href: '/careers' },
     { name: 'Invest with us', href: '/invest' },
