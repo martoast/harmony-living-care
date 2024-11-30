@@ -25,20 +25,17 @@
                 <a href="tel:+1(571)458-1036" class="relative inline-flex items-center gap-x-1.5 rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
                     <PhoneIcon class="-ml-0.5 h-5 w-5" aria-hidden="true"></PhoneIcon>
                     Call today
-                  </a>
+                </a>
               </div>
             </div>
           </div>
-          <div class="mt-8 border-t border-gray-200 pt-6">
+          <div v-if="service.testimonial" class="mt-8 border-t border-gray-200 pt-6">
             <blockquote>
               <div>
                 <p class="text-base text-gray-500">&ldquo;{{ service.testimonial.quote }}&rdquo;</p>
               </div>
-              <!-- Add 5-star reviews here -->
               <div class="mt-2 flex items-center">
-           
-                  <StarIcon v-for="i in 5" :key="i" class="h-5 w-5 text-red-500" aria-hidden="true" />
-         
+                <StarIcon v-for="i in 5" :key="i" class="h-5 w-5 text-red-500" aria-hidden="true" />
               </div>
               <footer class="mt-3">
                 <div class="flex items-center space-x-3">
@@ -101,11 +98,7 @@ const services = [
     description: "Our expert nurses provide comprehensive, high-quality care tailored to each resident's unique needs. With advanced training and years of experience, our nursing team ensures the highest standards of health management and personalized attention for your loved ones.",
     imageSrc: '/feature1.jpg',
     imageAlt: 'Hospice care environment',
-    testimonial: {
-      quote: 'My grandpa loves his nurse',
-      author: 'Jon Motsenbocker',
-      avatarSrc: 'https://lh3.googleusercontent.com/a-/ALV-UjWMPWu4OZwbHiOCQ6xfgBdV-kdvXXRldaWJVDTUHc7m1lGAl577=w120-h120-p-rp-mo-br100'
-    }
+    testimonial: null
   },
   {
     icon: HomeIcon,
