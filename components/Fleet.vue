@@ -113,7 +113,22 @@
         mobileVentilator: false,
         narcotics: false
       }
-    }
+    },
+    {
+      title: "Paramedic Interceptor",
+      image: "/interceptor.jpeg",
+      description: "Our Paramedic Interceptor vehicles are equipped with the same advanced life-saving equipment as our MICU units, allowing our skilled paramedics to quickly respond and provide critical care in emergency situations where rapid intervention is essential.",
+      features: {
+        hydraulicStretcher: true,
+        oxygen: true,
+        generalMedications: true,
+        intraosseousAccess: true,
+        cardiacMonitoring: true,
+        multiLineInfusion: true,
+        mobileVentilator: true,
+        narcotics: true
+      }
+    },
   ])
   
   const features = ref([
