@@ -203,7 +203,7 @@ useSeoMeta({
   ogTitle: () => `${job.value?.role} | Harmony Living Care`,
   description: () => job.value?.description,
   ogDescription: () => job.value?.description,
-  ogImage: () => job.value?.image,
+  ogImage: () => '/logo.jpg',
   twitterCard: () => "summary_large_image",
   googleSiteVerification: "ByJ5-rnCYL33Ld2dFoqsnAIRz2LmOc58iB52O8eOaPQ",
 });
