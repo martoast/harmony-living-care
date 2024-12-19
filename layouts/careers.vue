@@ -24,7 +24,7 @@
           appleMobileWebAppCapable: 'yes',
           mobileWebAppCapable: 'yes',
       
-          ogImage: '/logo.jpg',
+          ogImage: '/tea.jpeg',
       
           ogLocaleAlternate: ['es_LA'],
           ogType: 'website',
